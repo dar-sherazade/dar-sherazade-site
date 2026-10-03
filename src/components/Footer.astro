@@ -1,0 +1,90 @@
+---
+import Navigation from './Navigation.astro';
+import { siteConfig, emailIsPlaceholder } from '../config';
+import { url } from '../lib/url';
+import { t } from '../i18n/en';
+---
+
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="grid site-footer__top">
+      <div class="site-footer__intro">
+        <p class="label">{siteConfig.name}</p>
+        <p class="site-footer__tagline">{siteConfig.tagline}</p>
+      </div>
+      <nav class="site-footer__nav" aria-label={t.footerNavigation}>
+        <Navigation variant="footer" />
+      </nav>
+      <div class="site-footer__contact">
+        <p class="label muted">{t.instagram}</p>
+        <a class="link link--quiet" href={siteConfig.instagramUrl} rel="me noopener" target="_blank">
+          {siteConfig.instagramHandle}<span class="visually-hidden"> (opens in a new tab)</span>
+        </a>
+        <p class="label muted site-footer__gap">{t.email}</p>
+        {
+          emailIsPlaceholder ? (
+            <a class="link link--quiet" href={url('/contact/')}>{t.contact.title}</a>
+          ) : (
+            <a class="link link--quiet" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+          )
+        }
+      </div>
+    </div>
+
+    <p class="site-footer__name" aria-hidden="true">
+      Shera <em>Creates</em>
+    </p>
+
+    <div class="site-footer__bottom meta">
+      <p>© {siteConfig.copyrightYear} {siteConfig.name}</p>
+      <a class="link link--quiet" href="#main">{t.backToTop} ↑</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-top: clamp(4.5rem, 9vw, 8rem);
+    padding-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .site-footer__top { row-gap: 3rem; }
+  .site-footer__intro { grid-column: 1 / -1; }
+  .site-footer__tagline {
+    margin-top: 1.25rem;
+    font-size: clamp(1.5rem, 2.4vw, 2.125rem);
+    line-height: 1.15;
+    font-style: italic;
+    max-width: 22ch;
+  }
+  .site-footer__nav { grid-column: 1 / span 6; }
+  .site-footer__contact { grid-column: 7 / -1; font-size: 1.125rem; }
+  .site-footer__contact .label { margin-bottom: 0.4rem; }
+  .site-footer__gap { margin-top: 1.75rem; }
+
+  .site-footer__name {
+    margin-top: clamp(4rem, 9vw, 8rem);
+    font-size: clamp(3.5rem, 19vw, 21rem);
+    line-height: 0.8;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+    color: var(--dark-ink);
+  }
+  .site-footer__name em { color: var(--dark-muted); }
+
+  .site-footer__bottom {
+    margin-top: 2.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  @media (min-width: 900px) {
+    .site-footer__intro { grid-column: 1 / span 5; }
+    .site-footer__nav { grid-column: 7 / span 3; }
+    .site-footer__contact { grid-column: 10 / -1; }
+  }
+</style>

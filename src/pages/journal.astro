@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EditorialCard from '../components/EditorialCard.astro';
+import { getArticles } from '../lib/content';
+import { t } from '../i18n/en';
+
+const articles = await getArticles();
+const [lead, ...rest] = articles;
+---
+
+<BaseLayout title={t.journal.title} description={t.journal.intro}>
+  <header class="page-head wrap">
+    <p class="label reveal">{t.journal.eyebrow}</p>
+    <h1 class="h1 page-head__title reveal">{t.journal.title}</h1>
+    <p class="lede page-head__intro reveal" style="--delay: .1s">{t.journal.intro}</p>
+  </header>
+
+  <section class="wrap journal-list" aria-label={t.journal.title}>
+    {lead && <EditorialCard entry={lead} index={1} variant="feature" headingTag="h2" />}
+    {
+      rest.length > 0 && (
+        <div class="journal-list__rows">
+          {rest.map((entry, i) => (
+            <EditorialCard entry={entry} index={i + 2} headingTag="h2" />
+          ))}
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .journal-list { padding-top: clamp(1rem, 3vw, 2rem); padding-bottom: var(--section); }
+  .journal-list__rows {
+    margin-top: clamp(4rem, 8vw, 7rem);
+    border-bottom: 1px solid var(--line);
+  }
+</style>

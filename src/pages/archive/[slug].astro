@@ -1,0 +1,259 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImageReveal from '../../components/ImageReveal.astro';
+import EnquiryCTA from '../../components/EnquiryCTA.astro';
+import PrevNext from '../../components/PrevNext.astro';
+import { getKaftans } from '../../lib/content';
+import { siteConfig } from '../../config';
+import { url, pad } from '../../lib/url';
+import { t } from '../../i18n/en';
+
+export const getStaticPaths = (async () => {
+  const kaftans = await getKaftans();
+  return kaftans.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: { entry, prev: kaftans[i - 1], next: kaftans[i + 1] },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  entry: CollectionEntry<'kaftans'>;
+  prev?: CollectionEntry<'kaftans'>;
+  next?: CollectionEntry<'kaftans'>;
+}
+
+const { entry, prev, next } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const hasNote = (entry.body ?? '').trim().length > 0;
+const tbd = (v: string) => /^to be documented/i.test(v);
+
+const details: { term: string; value: string }[] = [
+  { term: t.piece.archiveNumber, value: d.archiveNumber },
+  { term: t.piece.region, value: d.region },
+  { term: t.piece.period, value: d.period },
+  { term: t.piece.materials, value: d.materials.join(', ') || 'To be documented' },
+  { term: t.piece.techniques, value: d.techniques.join(', ') || 'To be documented' },
+  { term: t.piece.condition, value: d.condition },
+  { term: t.piece.collection, value: d.collectionNote ? `${d.collection} — ${d.collectionNote}` : d.collection },
+  { term: t.piece.status, value: d.available ? t.piece.statusAvailable : t.piece.statusArchive },
+];
+
+const galleryLayout = ['g g--wide', 'g g--left', 'g g--right'];
+
+const site = Astro.site ?? new URL(siteConfig.siteUrl);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name: d.title,
+  identifier: d.archiveNumber,
+  description: d.description,
+  url: new URL(url(`/archive/${entry.id}/`), site).href,
+  isPartOf: { '@type': 'Collection', name: `${siteConfig.name} Archive` },
+  creator: { '@type': 'Organization', name: siteConfig.name },
+};
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  image={d.cover}
+  imageAlt={d.coverAlt}
+  jsonLd={jsonLd}
+>
+  <article class="piece">
+    <div class="wrap grid piece__top">
+      <div class="piece__media">
+        <ImageReveal
+          src={d.cover}
+          alt={d.coverAlt}
+          ratio="4 / 5"
+          position={d.coverPosition}
+          sizes="(min-width: 900px) 56vw, 100vw"
+          eager
+          reveal={false}
+          class="piece__cover"
+        />
+      </div>
+
+      <div class="piece__info">
+        <div class="piece__sticky">
+          <p class="label piece__no">
+            <a class="link link--quiet" href={url('/archive/')}>{t.archive.title}</a>
+            <span class="muted"> / </span>
+            {t.archive.no} <span class="num">{pad(d.order)}</span>
+          </p>
+          <h1 class="piece__title">{d.title}</h1>
+          <p class="piece__desc">{d.description}</p>
+          {d.sample && <p class="notice piece__notice">{t.archive.sampleNotice}</p>}
+
+          <h2 class="visually-hidden">{t.piece.details}</h2>
+          <dl class="piece__details">
+            {
+              details.map((row) => (
+                <div class="piece__row">
+                  <dt class="label muted">{row.term}</dt>
+                  <dd class:list={[tbd(row.value) && 'placeholder-text']}>{row.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+
+          {
+            d.available && (
+              <p class="piece__enquire">
+                <a class="arrow-link" href="#enquiry">
+                  <span>{t.enquiry.eyebrow}</span>
+                  <span class="arrow" aria-hidden="true">↓</span>
+                </a>
+              </p>
+            )
+          }
+        </div>
+      </div>
+    </div>
+
+    {
+      hasNote && (
+        <section class="section wrap grid piece__note" aria-labelledby="note-title">
+          <h2 id="note-title" class="label piece__note-label">{t.piece.note}</h2>
+          <div class="prose piece__note-body reveal">
+            <Content />
+          </div>
+        </section>
+      )
+    }
+
+    {
+      d.terms.length > 0 && (
+        <section class="wrap grid piece__terms" aria-labelledby="terms-title">
+          <h2 id="terms-title" class="label piece__note-label">{t.piece.terms}</h2>
+          <dl class="piece__terms-list">
+            {d.terms.map((term) => (
+              <div class="piece__term">
+                <dt>
+                  <span class="italic">{term.term}</span>
+                  {term.language && <span class="meta"> — {term.language}</span>}
+                </dt>
+                <dd class="meta">{term.gloss}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+      )
+    }
+
+    {
+      d.gallery.length > 0 && (
+        <section class="section piece__gallery" aria-labelledby="gallery-title">
+          <div class="wrap">
+            <h2 id="gallery-title" class="label gallery__label">{t.piece.gallery}</h2>
+            <div class="grid gallery__grid">
+              {d.gallery.map((img, i) => (
+                <ImageReveal
+                  src={img.src}
+                  alt={img.alt}
+                  position={img.position}
+                  sizes={i % 3 === 0 ? '(min-width: 900px) 80vw, 100vw' : '(min-width: 900px) 40vw, 85vw'}
+                  caption={`${t.piece.fig} ${i + 2} — ${img.caption ?? img.view ?? d.title}`}
+                  captionSide={i % 3 !== 0}
+                  class={galleryLayout[i % 3]}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+  </article>
+
+  {d.available && <div id="enquiry"><EnquiryCTA title={d.title} archiveNumber={d.archiveNumber} /></div>}
+
+  <PrevNext
+    label="Archive"
+    prevLabel={t.piece.previous}
+    nextLabel={t.piece.next}
+    prev={prev && { href: url(`/archive/${prev.id}/`), title: prev.data.title }}
+    next={next && { href: url(`/archive/${next.id}/`), title: next.data.title }}
+  />
+</BaseLayout>
+
+<style>
+  .piece__top {
+    padding-top: clamp(1.5rem, 3vw, 2.5rem);
+    row-gap: 2.5rem;
+  }
+  .piece__media { grid-column: 1 / -1; }
+  .piece__info { grid-column: 1 / -1; }
+
+  .piece__no { display: flex; flex-wrap: wrap; gap: 0.35em; align-items: baseline; }
+  .piece__title {
+    margin-top: 1.5rem;
+    font-weight: 400;
+    font-size: clamp(2.75rem, 5.4vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .piece__desc {
+    margin-top: 1.5rem;
+    font-size: clamp(1.25rem, 1.6vw, 1.5rem);
+    line-height: 1.38;
+    max-width: 32rem;
+  }
+  .piece__notice { margin-top: 1.5rem; }
+
+  .piece__details { margin-top: 2.5rem; border-top: 1px solid var(--line-strong); }
+  .piece__row {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, 2fr) 3fr;
+    gap: 1rem;
+    padding-block: 0.7rem;
+    border-bottom: 1px solid var(--line);
+    font-size: 1.0625rem;
+    line-height: 1.4;
+  }
+  .piece__row dt { padding-top: 0.2rem; }
+  .piece__enquire { margin-top: 1.5rem; }
+
+  @media (min-width: 900px) {
+    .piece__media { grid-column: 1 / span 7; }
+    .piece__info { grid-column: 9 / span 4; }
+    .piece__sticky {
+      position: sticky;
+      top: calc(var(--header-h) + 1.5rem);
+      padding-bottom: 2rem;
+    }
+  }
+
+  /* Note */
+  .piece__note { row-gap: 1.5rem; padding-bottom: 0; }
+  .piece__note-label { grid-column: 1 / -1; }
+  .piece__note-body { grid-column: 1 / -1; }
+  .piece__terms { padding-top: var(--section-sm); row-gap: 1.5rem; }
+  .piece__terms-list { grid-column: 1 / -1; display: grid; gap: 0; max-width: 40rem; }
+  .piece__term { padding-block: 0.9rem; border-top: 1px solid var(--line); }
+  .piece__term dt { font-size: 1.25rem; }
+  @media (min-width: 900px) {
+    .piece__note-label { grid-column: 1 / span 3; padding-top: 0.5rem; }
+    .piece__note-body, .piece__terms-list { grid-column: 4 / span 7; }
+  }
+
+  /* Gallery */
+  .gallery__label {
+    border-top: 1px solid var(--line-strong);
+    padding-top: 1rem;
+    margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+  .gallery__grid { row-gap: clamp(3rem, 8vw, 8rem); }
+  .gallery__grid > :global(.g) { grid-column: 1 / -1; }
+  .gallery__grid > :global(.g--left) { width: 85%; }
+  .gallery__grid > :global(.g--right) { width: 85%; justify-self: end; }
+  @media (min-width: 900px) {
+    .gallery__grid > :global(.g--wide) { grid-column: 2 / span 10; }
+    .gallery__grid > :global(.g--left) { grid-column: 1 / span 5; width: auto; }
+    .gallery__grid > :global(.g--right) { grid-column: 8 / span 4; width: auto; margin-top: clamp(6rem, 14vw, 14rem); }
+  }
+</style>

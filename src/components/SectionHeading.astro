@@ -1,0 +1,56 @@
+---
+/**
+ * Section heading: a thin rule, a small label and a large serif title.
+ */
+interface Props {
+  eyebrow: string;
+  title?: string;
+  index?: string;
+  link?: { href: string; label: string };
+  tag?: 'h1' | 'h2';
+  size?: 'h1' | 'h2' | 'h3';
+  id?: string;
+}
+const { eyebrow, title, index, link, tag = 'h2', size = 'h2', id } = Astro.props;
+const Tag = tag;
+---
+
+<header class="sh reveal">
+  <div class="sh__top">
+    <p class="label">{index && <span class="sh__index num">{index}</span>}{eyebrow}</p>
+    {
+      link && (
+        <a class="arrow-link sh__link" href={link.href}>
+          <span>{link.label}</span>
+          <span class="arrow" aria-hidden="true">→</span>
+        </a>
+      )
+    }
+  </div>
+  {title && <Tag class={size} id={id}>{title}</Tag>}
+  {!title && <Tag class="visually-hidden" id={id}>{eyebrow}</Tag>}
+</header>
+
+<style>
+  .sh {
+    border-top: 1px solid var(--line-strong);
+    padding-top: 1rem;
+  }
+  .sh__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    min-height: 2.75rem;
+  }
+  .sh__index { margin-right: 1.25rem; letter-spacing: 0; }
+  .sh__link { display: none; }
+  .sh :is(h1, h2) {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+  @media (min-width: 700px) {
+    .sh__link { display: inline-flex; }
+  }
+</style>

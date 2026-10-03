@@ -1,0 +1,92 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageReveal from '../components/ImageReveal.astro';
+import { siteConfig } from '../config';
+import { url } from '../lib/url';
+import { t } from '../i18n/en';
+
+// The text of this page lives in src/content/pages/about.md
+import aboutImage from '../assets/about/replace-me-about.jpg';
+
+const page = await getEntry('pages', 'about');
+if (!page) throw new Error('Missing src/content/pages/about.md');
+const { Content } = await render(page);
+---
+
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <header class="page-head wrap">
+    <p class="label reveal">{siteConfig.name}</p>
+    <h1 class="h1 page-head__title reveal">{page.data.title}</h1>
+  </header>
+
+  <div class="wrap grid about">
+    <div class="about__image">
+      <ImageReveal
+        src={aboutImage}
+        alt="Placeholder image — to be replaced with a photograph for the About page."
+        ratio="4 / 5"
+        sizes="(min-width: 900px) 33vw, 100vw"
+        eager
+      />
+    </div>
+    <div class="prose about__text reveal">
+      <Content />
+    </div>
+  </div>
+
+  <section class="section wrap grid about__ig" aria-labelledby="ig-title">
+    <h2 id="ig-title" class="label about__ig-label">{t.instagram}</h2>
+    <div class="about__ig-body">
+      <p class="lede">The project lives day to day on Instagram — new pieces, details and research notes.</p>
+      <a class="about__ig-link" href={siteConfig.instagramUrl} rel="me noopener" target="_blank">
+        <span>{siteConfig.instagramHandle}</span>
+        <span class="about__ig-arrow" aria-hidden="true">↗</span>
+        <span class="visually-hidden">(opens Instagram in a new tab)</span>
+      </a>
+      <p class="about__contact">
+        <a class="arrow-link" href={url('/contact/')}><span>{t.contact.title}</span><span class="arrow" aria-hidden="true">→</span></a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about { row-gap: 3rem; padding-top: clamp(1rem, 3vw, 2rem); }
+  .about__image, .about__text { grid-column: 1 / -1; }
+  .about__text > :global(p:first-child) {
+    font-size: clamp(1.5rem, 2.4vw, 2.125rem);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    max-width: 28ch;
+  }
+  .about__image { max-width: 30rem; }
+  @media (min-width: 900px) {
+    .about__image { grid-column: 1 / span 4; max-width: none; align-self: start; position: sticky; top: calc(var(--header-h) + 1.5rem); }
+    .about__text { grid-column: 6 / span 6; }
+  }
+
+  .about__ig { row-gap: 1.5rem; }
+  .about__ig-label { grid-column: 1 / -1; border-top: 1px solid var(--line-strong); padding-top: 1rem; }
+  .about__ig-body { grid-column: 1 / -1; }
+  .about__ig-body .lede { max-width: 30ch; }
+  .about__ig-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25em;
+    margin-top: 2rem;
+    font-size: clamp(3rem, 9vw, 9rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .about__ig-arrow { font-size: 0.4em; transition: transform 0.8s var(--ease-out); }
+  .about__ig-link:hover .about__ig-arrow { transform: translate(0.15em, -0.15em); }
+  .about__ig-link:hover > span:first-child { font-style: italic; }
+  .about__contact { margin-top: 2.5rem; }
+  @media (min-width: 900px) {
+    .about__ig-label { grid-column: 1 / span 3; border-top: 0; padding-top: 0.6rem; }
+    .about__ig-body { grid-column: 4 / -1; border-top: 1px solid var(--line-strong); padding-top: 1.5rem; }
+  }
+</style>

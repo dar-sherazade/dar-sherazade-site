@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImageReveal from '../components/ImageReveal.astro';
+import { getKaftans } from '../lib/content';
+import { siteConfig } from '../config';
+import { url, pad } from '../lib/url';
+import { t } from '../i18n/en';
+
+// Every archive entry with `available: true` appears here automatically.
+const pieces = (await getKaftans()).filter((k) => k.data.available);
+---
+
+<BaseLayout title={t.available.title} description={t.available.intro}>
+  <header class="page-head wrap">
+    <p class="label reveal">{t.home.availableEyebrow}</p>
+    <h1 class="h1 page-head__title reveal">{t.available.title}</h1>
+    <p class="lede page-head__intro reveal" style="--delay: .1s">{t.available.intro}</p>
+    <p class="meta page-head__intro reveal" style="--delay: .15s">{t.available.note}</p>
+  </header>
+
+  <section class="wrap available" aria-label={t.available.title}>
+    {
+      pieces.length === 0 ? (
+        <p class="lede muted available__empty">
+          {t.available.empty}{' '}
+          <a class="link" href={siteConfig.instagramUrl} rel="noopener" target="_blank">{siteConfig.instagramHandle}</a>
+        </p>
+      ) : (
+        <ol class="available__list" role="list">
+          {pieces.map((entry, i) => {
+            const d = entry.data;
+            return (
+              <li class:list={['av', i % 2 === 1 && 'av--flip']}>
+                <a class="av__media" href={url(`/archive/${entry.id}/`)} tabindex="-1" aria-hidden="true">
+                  <ImageReveal
+                    src={d.cover}
+                    alt=""
+                    ratio="4 / 5"
+                    position={d.coverPosition}
+                    sizes="(min-width: 900px) 45vw, 100vw"
+                    eager={i === 0}
+                  />
+                </a>
+                <div class="av__text reveal">
+                  <p class="label">
+                    <span class="muted">{t.archive.no}</span> <span class="num">{pad(d.order)}</span>
+                    <span class="muted"> · {d.archiveNumber}</span>
+                  </p>
+                  <h2 class="h3 av__title">
+                    <a class="link link--quiet" href={url(`/archive/${entry.id}/`)}>{d.title}</a>
+                  </h2>
+                  <p class="av__desc">{d.description}</p>
+                  {d.materials.length > 0 && <p class="meta">{d.materials.join(' · ')}</p>}
+                  <p class="av__cta">
+                    <a class="arrow-link" href={url(`/archive/${entry.id}/#enquiry`)}>
+                      <span>{t.available.view}</span>
+                      <span class="arrow" aria-hidden="true">→</span>
+                      <span class="visually-hidden"> — {d.title}</span>
+                    </a>
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .available { padding-top: clamp(2rem, 5vw, 4rem); padding-bottom: var(--section); }
+  .available__list { display: grid; gap: clamp(5rem, 10vw, 10rem); }
+  .av {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--col-gap);
+    row-gap: 1.75rem;
+    align-items: end;
+  }
+  .av__media, .av__text { grid-column: 1 / -1; }
+  .av__media { display: block; }
+  .av__title { margin-top: 1rem; }
+  .av__desc { margin-top: 1rem; max-width: 32rem; }
+  .av__text .meta { margin-top: 1rem; }
+  .av__cta { margin-top: 1.5rem; }
+  @media (min-width: 900px) {
+    .av__media { grid-column: 1 / span 6; grid-row: 1; }
+    .av__text { grid-column: 8 / span 5; grid-row: 1; padding-bottom: 1rem; }
+    .av--flip .av__media { grid-column: 7 / span 6; }
+    .av--flip .av__text { grid-column: 1 / span 5; }
+  }
+  .available__empty { padding-block: 3rem 6rem; max-width: 36ch; }
+</style>

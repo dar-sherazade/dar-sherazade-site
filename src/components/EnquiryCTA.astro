@@ -1,0 +1,89 @@
+---
+/**
+ * Private enquiry block for available pieces.
+ * Shown only when a kaftan has `available: true`.
+ * Instagram and email come from src/config.ts.
+ */
+import { siteConfig, emailIsPlaceholder } from '../config';
+import { t } from '../i18n/en';
+import { url } from '../lib/url';
+
+interface Props {
+  /** Name of the piece, used in the email subject. */
+  title: string;
+  archiveNumber?: string;
+}
+const { title, archiveNumber } = Astro.props;
+const subject = `${t.enquiry.subjectPrefix} ${title}${archiveNumber ? ` (${archiveNumber})` : ''}`;
+const mailto = `mailto:${siteConfig.email}?subject=${encodeURIComponent(subject)}`;
+---
+
+<section class="enquiry on-dark" aria-labelledby="enquiry-title">
+  <div class="wrap grid enquiry__inner">
+    <p class="label enquiry__eyebrow reveal">{t.enquiry.eyebrow}</p>
+    <div class="enquiry__body reveal">
+      <h2 id="enquiry-title" class="h3">{t.enquiry.text}</h2>
+      <p class="enquiry__detail">{t.enquiry.detail}</p>
+      <ul class="enquiry__actions" role="list">
+        <li>
+          <a class="enquiry__action" href={siteConfig.instagramUrl} rel="noopener" target="_blank">
+            <span class="label muted">Instagram</span>
+            <span class="enquiry__action-text">{t.enquiry.instagram} <span aria-hidden="true">↗</span></span>
+            <span class="visually-hidden">(opens in a new tab)</span>
+          </a>
+        </li>
+        <li>
+          {
+            emailIsPlaceholder ? (
+              <a class="enquiry__action" href={url('/contact/')}>
+                <span class="label muted">Email</span>
+                <span class="enquiry__action-text">{t.enquiry.email} <span aria-hidden="true">→</span></span>
+              </a>
+            ) : (
+              <a class="enquiry__action" href={mailto}>
+                <span class="label muted">Email</span>
+                <span class="enquiry__action-text">{t.enquiry.email} <span aria-hidden="true">→</span></span>
+              </a>
+            )
+          }
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .enquiry { padding-block: clamp(4.5rem, 10vw, 9rem); }
+  .enquiry__inner { row-gap: 2rem; }
+  .enquiry__eyebrow { grid-column: 1 / -1; }
+  .enquiry__body { grid-column: 1 / -1; }
+  .enquiry h2 { max-width: 20ch; }
+  .enquiry__detail {
+    margin-top: 1.25rem;
+    max-width: 32rem;
+    color: var(--dark-muted);
+  }
+  .enquiry__actions {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 0;
+    max-width: 40rem;
+  }
+  .enquiry__action {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    align-items: baseline;
+    gap: 1rem;
+    padding-block: 1.1rem;
+    border-top: 1px solid var(--line);
+    text-decoration: none;
+    font-size: clamp(1.25rem, 2vw, 1.625rem);
+  }
+  .enquiry li:last-child .enquiry__action { border-bottom: 1px solid var(--line); }
+  .enquiry__action-text { transition: transform 0.8s var(--ease-out); }
+  .enquiry__action:hover .enquiry__action-text { transform: translateX(0.4rem); }
+  @media (min-width: 900px) {
+    .enquiry__eyebrow { grid-column: 1 / span 3; padding-top: 0.6rem; }
+    .enquiry__body { grid-column: 4 / span 8; }
+  }
+</style>

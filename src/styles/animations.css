@@ -1,0 +1,88 @@
+/* ==========================================================================
+   Motion — restrained and optional.
+   Elements are only hidden when JavaScript is running (html.js), so the
+   site is fully readable without scripts. Everything is disabled when the
+   visitor prefers reduced motion.
+   ========================================================================== */
+
+/* Fade + rise on scroll */
+.js .reveal {
+  opacity: 0;
+  transform: translate3d(0, 1.75rem, 0);
+  transition:
+    opacity 1.1s var(--ease-out),
+    transform 1.3s var(--ease-out);
+  transition-delay: var(--delay, 0s);
+}
+.js .reveal.is-in { opacity: 1; transform: none; }
+
+/* Image mask reveal on scroll */
+.js .reveal-image { clip-path: inset(0 0 100% 0); }
+.js .reveal-image img { transform: scale(1.08); }
+.js .reveal-image.is-in {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.5s var(--ease-out);
+  transition-delay: var(--delay, 0s);
+}
+.js .reveal-image.is-in img {
+  transform: scale(1);
+  transition: transform 2.2s var(--ease-out);
+  transition-delay: var(--delay, 0s);
+}
+
+/* Line-by-line text reveal (used in the hero) */
+.line-mask { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.line-mask > span { display: block; }
+
+@keyframes rise-in {
+  from { transform: translate3d(0, 105%, 0); }
+  to { transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes mask-down {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@keyframes settle {
+  from { transform: scale(1.12); }
+  to { transform: scale(1); }
+}
+@keyframes cue {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* Gentle cross-fade between pages (supported browsers only, no JS) */
+@view-transition { navigation: auto; }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+  .js .reveal,
+  .js .reveal-image,
+  .js .reveal-image img {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+  }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none; }
+}

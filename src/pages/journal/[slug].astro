@@ -1,0 +1,159 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImageReveal from '../../components/ImageReveal.astro';
+import PrevNext from '../../components/PrevNext.astro';
+import { getArticles, readingTime } from '../../lib/content';
+import { siteConfig } from '../../config';
+import { url, pad, formatDate } from '../../lib/url';
+import { t } from '../../i18n/en';
+
+export const getStaticPaths = (async () => {
+  const articles = await getArticles(); // newest first
+  return articles.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      number: i + 1,
+      newer: articles[i - 1],
+      older: articles[i + 1],
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  entry: CollectionEntry<'journal'>;
+  number: number;
+  newer?: CollectionEntry<'journal'>;
+  older?: CollectionEntry<'journal'>;
+}
+
+const { entry, number, newer, older } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const minutes = readingTime(entry.body);
+
+const site = Astro.site ?? new URL(siteConfig.siteUrl);
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  alternativeHeadline: d.subtitle,
+  description: d.excerpt,
+  datePublished: d.date.toISOString(),
+  author: { '@type': 'Organization', name: d.author },
+  publisher: { '@type': 'Organization', name: siteConfig.name },
+  mainEntityOfPage: new URL(url(`/journal/${entry.id}/`), site).href,
+};
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.excerpt}
+  image={d.cover}
+  imageAlt={d.coverAlt}
+  type="article"
+  publishedTime={d.date}
+  jsonLd={jsonLd}
+>
+  <article class="article">
+    <header class="wrap grid article__head">
+      <p class="label article__kicker">
+        <a class="link link--quiet" href={url('/journal/')}>{t.journal.title}</a>
+        <span class="muted"> / </span>
+        <span class="num">{pad(number)}</span>
+      </p>
+      <h1 class="h1 article__title">{d.title}</h1>
+      {d.subtitle && <p class="lede italic article__subtitle">{d.subtitle}</p>}
+      <p class="meta article__meta">
+        <time datetime={d.date.toISOString()}>{formatDate(d.date)}</time>
+        <span aria-hidden="true"> · </span>
+        <span>{minutes} min read</span>
+        <span aria-hidden="true"> · </span>
+        <span>{t.journal.by} {d.author}</span>
+      </p>
+    </header>
+
+    <div class="wrap article__cover">
+      <ImageReveal
+        src={d.cover}
+        alt={d.coverAlt}
+        ratio="3 / 2"
+        position={d.coverPosition}
+        sizes="(min-width: 1720px) 1600px, 100vw"
+        caption={d.coverCaption}
+        eager
+        reveal={false}
+      />
+    </div>
+
+    <div class="wrap grid article__body">
+      <aside class="article__aside">
+        {d.placeholder && <p class="notice">{t.journal.placeholderNotice}</p>}
+      </aside>
+      <div class="prose article__prose">
+        <Content />
+      </div>
+    </div>
+
+    <section class="wrap grid article__refs" aria-labelledby="refs-title">
+      <h2 id="refs-title" class="label article__refs-label">{t.journal.references}</h2>
+      {
+        d.references.length > 0 ? (
+          <ol class="article__refs-list meta">
+            {d.references.map((ref) => <li>{ref}</li>)}
+          </ol>
+        ) : (
+          <p class="article__refs-list meta placeholder-text">{t.journal.referencesEmpty}</p>
+        )
+      }
+    </section>
+  </article>
+
+  <PrevNext
+    label="Journal"
+    prevLabel={t.journal.previous}
+    nextLabel={t.journal.next}
+    prev={older && { href: url(`/journal/${older.id}/`), title: older.data.title }}
+    next={newer && { href: url(`/journal/${newer.id}/`), title: newer.data.title }}
+  />
+</BaseLayout>
+
+<style>
+  .article__head {
+    padding-top: clamp(3rem, 8vw, 8rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+    row-gap: 1.5rem;
+  }
+  .article__head > * { grid-column: 1 / -1; }
+  .article__kicker { display: flex; flex-wrap: wrap; gap: 0.35em; }
+  .article__title { max-width: 16ch; text-wrap: balance; }
+  .article__subtitle { max-width: 30ch; color: var(--ink-soft); }
+  @media (min-width: 900px) {
+    .article__subtitle, .article__meta { grid-column: 4 / -1; }
+  }
+
+  .article__body { padding-top: clamp(3rem, 7vw, 6rem); row-gap: 2rem; }
+  .article__aside, .article__prose { grid-column: 1 / -1; }
+  @media (min-width: 900px) {
+    .article__aside { grid-column: 1 / span 3; }
+    .article__aside .notice { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+    .article__prose { grid-column: 4 / span 8; }
+  }
+
+  .article__refs { padding-top: var(--section-sm); row-gap: 1.25rem; }
+  .article__refs-label {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--line-strong);
+    padding-top: 1rem;
+  }
+  .article__refs-list { grid-column: 1 / -1; max-width: 40rem; }
+  ol.article__refs-list { list-style: decimal; padding-left: 1.2em; }
+  ol.article__refs-list li + li { margin-top: 0.5rem; }
+  @media (min-width: 900px) {
+    .article__refs-label { grid-column: 1 / span 3; border-top: 0; padding-top: 0; }
+    .article__refs-list { grid-column: 4 / span 7; }
+    .article__refs { border-top: 0; }
+  }
+</style>

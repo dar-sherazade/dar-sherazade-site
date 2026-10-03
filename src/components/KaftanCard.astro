@@ -1,0 +1,108 @@
+---
+/**
+ * Archive card. All information is always visible (no hover-only
+ * content); hovering only adds a slow zoom and a small shift.
+ */
+import type { CollectionEntry } from 'astro:content';
+import ImageReveal from './ImageReveal.astro';
+import { url, pad, toKey } from '../lib/url';
+import { t } from '../i18n/en';
+
+interface Props {
+  entry: CollectionEntry<'kaftans'>;
+  /** Shape of the image crop. */
+  shape?: 'portrait' | 'tall' | 'landscape';
+  sizes?: string;
+  headingTag?: 'h2' | 'h3';
+  delay?: number;
+  class?: string;
+  eager?: boolean;
+}
+
+const {
+  entry,
+  shape = 'portrait',
+  sizes = '(min-width: 900px) 40vw, 90vw',
+  headingTag = 'h3',
+  delay = 0,
+  class: className,
+  eager = false,
+} = Astro.props;
+const d = entry.data;
+const Heading = headingTag;
+const ratio = { portrait: '4 / 5', tall: '2 / 3', landscape: '5 / 4' }[shape];
+const tbd = (v: string) => /^to be documented/i.test(v);
+---
+
+<article
+  class:list={['kcard', `kcard--${shape}`, className]}
+  data-kaftan
+  data-region={toKey(d.region)}
+  data-period={toKey(d.period)}
+  data-material={d.materials.map(toKey).join(' ')}
+  data-technique={d.techniques.map(toKey).join(' ')}
+  data-availability={d.available ? 'available' : 'archive'}
+>
+  <a class="kcard__link" href={url(`/archive/${entry.id}/`)}>
+    <ImageReveal
+      src={d.cover}
+      alt={d.coverAlt}
+      ratio={ratio}
+      position={d.coverPosition}
+      sizes={sizes}
+      delay={delay}
+      eager={eager}
+      class="kcard__media"
+    />
+    <div class="kcard__meta">
+      <p class="kcard__no label"><span class="muted">{t.archive.no}</span> <span class="num">{pad(d.order)}</span></p>
+      <div class="kcard__body">
+        <Heading class="kcard__title">{d.title}</Heading>
+        <p class="meta">
+          {tbd(d.region) ? <span class="italic">Region to be documented</span> : d.region}
+          {!tbd(d.period) && <span> · {d.period}</span>}
+        </p>
+        {d.materials.length > 0 && <p class="meta">{d.materials.join(' · ')}</p>}
+        {d.available && <p class="kcard__avail label">{t.archive.availableTag}</p>}
+      </div>
+    </div>
+  </a>
+</article>
+
+<style>
+  .kcard__link {
+    display: block;
+    text-decoration: none;
+  }
+  .kcard :global(.kcard__media img) {
+    transition: transform 1.6s var(--ease-out) !important;
+  }
+  .kcard__meta {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: 0 1rem;
+    margin-top: 1.1rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--line);
+  }
+  .kcard__no { padding-top: 0.45rem; }
+  .kcard__title {
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.1vw, 2.125rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.45rem;
+    transition: transform 0.9s var(--ease-out);
+  }
+  .kcard__avail {
+    margin-top: 0.7rem;
+    font-size: 0.6875rem;
+    color: var(--accent);
+  }
+
+  @media (hover: hover) {
+    .kcard__link:hover :global(.kcard__media img) { transform: scale(1.035); }
+    .kcard__link:hover .kcard__title { transform: translateX(0.35rem); }
+  }
+  .kcard__link:focus-visible { outline-offset: 6px; }
+</style>

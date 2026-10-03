@@ -1,0 +1,166 @@
+/* ==========================================================================
+   Typography — EB Garamond (display + reading) and IBM Plex Sans (labels).
+   ========================================================================== */
+
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(4rem, 13.5vw, 14.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+}
+
+.h1 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 8.4vw, 8.75rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+}
+
+.h2 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 5.2vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.022em;
+}
+
+.h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.625rem, 2.6vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+}
+
+.statement {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.875rem, 4.1vw, 4.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.018em;
+  text-wrap: balance;
+}
+
+.lede {
+  font-family: var(--serif);
+  font-size: clamp(1.375rem, 2.1vw, 1.875rem);
+  line-height: 1.32;
+  letter-spacing: -0.006em;
+  text-wrap: pretty;
+}
+
+.body-text {
+  font-size: clamp(1.125rem, 1.25vw, 1.25rem);
+  line-height: 1.62;
+  max-width: var(--measure);
+  text-wrap: pretty;
+}
+.body-text > * + * { margin-top: 1.1em; }
+
+em, i, .italic { font-style: italic; }
+.italic-display { font-style: italic; letter-spacing: -0.04em; }
+
+/* Small uppercase labels — museum-label voice */
+.label {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.meta {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+.num {
+  font-family: var(--serif);
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.muted { color: var(--muted); }
+
+/* Long-form article body */
+.prose {
+  font-size: clamp(1.1875rem, 1.3vw, 1.3125rem);
+  line-height: 1.64;
+}
+.prose > * { max-width: var(--measure); }
+.prose > * + * { margin-top: 1.15em; }
+.prose h2 {
+  font-weight: 400;
+  font-size: clamp(1.75rem, 2.6vw, 2.375rem);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-top: 2.2em;
+}
+.prose h3 {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-top: 2.4em;
+}
+.prose h2 + *, .prose h3 + * { margin-top: 0.8em; }
+.prose a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+.prose ul, .prose ol { padding-left: 1.2em; }
+.prose ul { list-style: '— '; }
+.prose ol { list-style: decimal; }
+.prose li + li { margin-top: 0.4em; }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin-block: 3em; }
+
+/* Pull quote: a Markdown blockquote */
+.prose blockquote {
+  max-width: 52rem;
+  margin-block: clamp(3rem, 7vw, 6rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-strong);
+  font-size: clamp(2rem, 3.8vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  font-style: italic;
+  text-wrap: balance;
+}
+.prose blockquote p + p { margin-top: 0.6em; }
+
+/* Figures inside articles (see src/lib/rehype-figure.mjs) */
+.prose figure,
+.prose .article-figure {
+  max-width: 46rem;
+  margin-block: clamp(3rem, 6vw, 5rem);
+}
+.prose figure img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 85svh;
+  background: var(--surface);
+}
+.prose figcaption {
+  margin-top: 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 30rem;
+}
+.prose > p > img { width: 100%; height: auto; }
+
+/* Editorial placeholder text, shown in a quieter voice */
+.prose .placeholder,
+.placeholder-text {
+  color: var(--muted);
+  font-style: italic;
+}

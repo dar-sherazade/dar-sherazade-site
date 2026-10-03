@@ -1,0 +1,172 @@
+---
+/**
+ * Site header. On the homepage ("overlay") it starts transparent and
+ * becomes solid once the visitor scrolls past the top of the hero.
+ * On small screens the links move into a full-screen menu.
+ */
+import Navigation from './Navigation.astro';
+import { siteConfig } from '../config';
+import { url } from '../lib/url';
+import { t } from '../i18n/en';
+
+interface Props {
+  mode?: 'overlay' | 'solid';
+}
+const { mode = 'solid' } = Astro.props;
+---
+
+<header class="site-header" data-mode={mode} data-header>
+  <div class="wrap site-header__inner">
+    <a class="wordmark" href={url('/')}>
+      <span>{siteConfig.name}</span>
+      <span class="visually-hidden">— home</span>
+    </a>
+
+    <nav class="site-header__nav" aria-label={t.mainNavigation}>
+      <Navigation variant="header" />
+    </nav>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="site-menu"
+      data-menu-toggle
+    >
+      <span class="menu-toggle__label" data-open-label>{t.menu}</span>
+      <span class="menu-toggle__label" data-close-label hidden>{t.close}</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="site-menu" data-menu inert>
+  <nav class="wrap menu__inner" aria-label={t.mainNavigation}>
+    <Navigation variant="menu" />
+    <div class="menu__foot">
+      <p class="label muted">{siteConfig.tagline}</p>
+      <a class="arrow-link" href={url('/contact/')}><span>Contact</span><span class="arrow" aria-hidden="true">→</span></a>
+    </div>
+  </nav>
+</div>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    height: var(--header-h);
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 0.5s var(--ease),
+      border-color 0.5s var(--ease);
+  }
+  .site-header.is-scrolled { border-bottom-color: var(--line); }
+
+  /* Homepage: transparent at first, solid after the hero top */
+  .site-header[data-mode='overlay'] {
+    position: fixed;
+    inset: 0 0 auto 0;
+    background: transparent;
+  }
+  .site-header[data-mode='overlay'].is-scrolled {
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+  }
+
+  .site-header__inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .wordmark {
+    font-family: var(--serif);
+    font-size: 1.0625rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    padding-block: 0.75rem;
+  }
+
+  .site-header__nav { display: none; }
+
+  .menu-toggle {
+    position: relative;
+    z-index: 2;
+    min-width: 3.5rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 0;
+    border: 0;
+    background: none;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .menu-toggle__label {
+    display: inline-block;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.15em;
+  }
+
+  @media (min-width: 900px) {
+    .site-header__nav { display: block; }
+    .menu-toggle, .menu { display: none; }
+  }
+
+  /* Full-screen menu */
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: var(--bg);
+    padding-top: var(--header-h);
+    visibility: hidden;
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+    transition:
+      clip-path 0.7s var(--ease-out),
+      opacity 0.4s var(--ease),
+      visibility 0s linear 0.7s;
+    overflow-y: auto;
+  }
+  .menu.is-open {
+    visibility: visible;
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transition:
+      clip-path 0.7s var(--ease-out),
+      opacity 0.3s var(--ease),
+      visibility 0s;
+  }
+  .menu__inner {
+    min-height: calc(100% - 1px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3rem;
+    padding-block: 2rem 2.5rem;
+  }
+  .menu :global(.nav--menu li) {
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: opacity 0.5s var(--ease), transform 0.7s var(--ease-out);
+  }
+  .menu.is-open :global(.nav--menu li) { opacity: 1; transform: none; }
+  .menu.is-open :global(.nav--menu li:nth-child(2)) { transition-delay: 0.05s; }
+  .menu.is-open :global(.nav--menu li:nth-child(3)) { transition-delay: 0.1s; }
+  .menu.is-open :global(.nav--menu li:nth-child(4)) { transition-delay: 0.15s; }
+  .menu.is-open :global(.nav--menu li:nth-child(5)) { transition-delay: 0.2s; }
+  .menu__foot {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+</style>

@@ -1,0 +1,124 @@
+---
+/**
+ * Journal card.
+ *  - "row":     oversized number, title, subtitle and a small image.
+ *  - "feature": large image with the title beneath (lead article).
+ */
+import type { CollectionEntry } from 'astro:content';
+import ImageReveal from './ImageReveal.astro';
+import { url, pad, formatDate } from '../lib/url';
+
+interface Props {
+  entry: CollectionEntry<'journal'>;
+  index: number;
+  variant?: 'row' | 'feature';
+  showImage?: boolean;
+  headingTag?: 'h2' | 'h3';
+}
+const { entry, index, variant = 'row', showImage = true, headingTag = 'h3' } = Astro.props;
+const d = entry.data;
+const Heading = headingTag;
+const href = url(`/journal/${entry.id}/`);
+---
+
+{
+  variant === 'feature' ? (
+    <article class="ecard ecard--feature reveal">
+      <a href={href} class="ecard__link">
+        <ImageReveal src={d.cover} alt={d.coverAlt} ratio="3 / 2" position={d.coverPosition} sizes="(min-width: 900px) 66vw, 100vw" />
+        <div class="ecard__feature-text">
+          <p class="ecard__num num" aria-hidden="true">{pad(index)}</p>
+          <div>
+            <Heading class="ecard__title h2">{d.title}</Heading>
+            {d.subtitle && <p class="ecard__subtitle lede italic">{d.subtitle}</p>}
+            <p class="meta ecard__date"><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>
+          </div>
+        </div>
+      </a>
+    </article>
+  ) : (
+    <article class:list={['ecard ecard--row reveal', !showImage && 'ecard--no-image']}>
+      <a href={href} class="ecard__link">
+        <p class="ecard__num num" aria-hidden="true">{pad(index)}</p>
+        <div class="ecard__text">
+          <Heading class="ecard__title">{d.title}</Heading>
+          {d.subtitle && <p class="ecard__subtitle italic">{d.subtitle}</p>}
+          <p class="meta ecard__date"><time datetime={d.date.toISOString()}>{formatDate(d.date)}</time></p>
+        </div>
+        {showImage && (
+          <div class="ecard__thumb">
+            <ImageReveal src={d.cover} alt="" ratio="4 / 5" position={d.coverPosition} sizes="(min-width: 900px) 12vw, 28vw" reveal={false} />
+          </div>
+        )}
+      </a>
+    </article>
+  )
+}
+
+<style>
+  .ecard__link { display: block; text-decoration: none; }
+
+  /* Row */
+  .ecard--row { border-top: 1px solid var(--line); }
+  .ecard--row .ecard__link {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr 5.5rem;
+    gap: 1rem;
+    align-items: start;
+    padding-block: 1.5rem 1.75rem;
+  }
+  .ecard--no-image .ecard__link { grid-template-columns: 3.25rem 1fr; }
+  .ecard__num {
+    font-size: clamp(2.25rem, 6vw, 6.5rem);
+    line-height: 0.82;
+    letter-spacing: -0.04em;
+    color: var(--muted);
+    transition: color 0.6s var(--ease);
+  }
+  .ecard__title {
+    font-weight: 400;
+    font-size: clamp(1.625rem, 3vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    transition: transform 0.9s var(--ease-out);
+  }
+  .ecard__subtitle {
+    margin-top: 0.6rem;
+    font-size: clamp(1.125rem, 1.4vw, 1.375rem);
+    line-height: 1.3;
+    color: var(--muted);
+    max-width: 34rem;
+  }
+  .ecard__date { margin-top: 0.9rem; }
+  .ecard__thumb :global(img) { transition: transform 1.4s var(--ease-out); }
+
+  @media (min-width: 900px) {
+    .ecard--row .ecard__link {
+      grid-template-columns: minmax(7rem, 2fr) 7fr minmax(8rem, 2fr);
+      gap: var(--col-gap);
+      padding-block: 2.25rem 2.5rem;
+    }
+    .ecard--no-image .ecard__link { grid-template-columns: minmax(7rem, 2fr) 9fr; }
+  }
+
+  @media (hover: hover) {
+    .ecard--row .ecard__link:hover .ecard__num { color: var(--ink); }
+    .ecard--row .ecard__link:hover .ecard__title { transform: translateX(0.4rem); }
+    .ecard__link:hover .ecard__thumb :global(img) { transform: scale(1.04); }
+    .ecard--feature .ecard__link:hover :global(img) { transform: scale(1.025); transition: transform 1.6s var(--ease-out); }
+  }
+
+  /* Feature */
+  .ecard__feature-text {
+    display: grid;
+    grid-template-columns: 3.25rem 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .ecard--feature .ecard__title { font-size: clamp(2.25rem, 5vw, 5rem); }
+  .ecard--feature .ecard__subtitle { font-size: clamp(1.25rem, 2vw, 1.75rem); }
+  @media (min-width: 900px) {
+    .ecard__feature-text { grid-template-columns: minmax(7rem, 2fr) 9fr; gap: var(--col-gap); margin-top: 2rem; }
+  }
+</style>

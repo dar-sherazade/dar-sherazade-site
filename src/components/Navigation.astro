@@ -1,0 +1,114 @@
+---
+/**
+ * Navigation list, used in the header (desktop), the full-screen menu
+ * (mobile) and the footer. Items come from src/config.ts.
+ */
+import { mainNav, footerNav, siteConfig } from '../config';
+import { url, pad } from '../lib/url';
+import { t } from '../i18n/en';
+
+interface Props {
+  variant: 'header' | 'menu' | 'footer';
+}
+const { variant } = Astro.props;
+const items = variant === 'footer' ? footerNav : mainNav;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const current = Astro.url.pathname.replace(base, '') || '/';
+const isCurrent = (href: string) => current.startsWith(href);
+---
+
+<ul class={`nav nav--${variant}`} role="list">
+  {
+    items.map((item, i) => (
+      <li>
+        <a
+          href={url(item.href)}
+          class="nav__link"
+          aria-current={isCurrent(item.href) ? 'page' : undefined}
+        >
+          {variant === 'menu' && <span class="nav__num label" aria-hidden="true">{pad(i + 1)}</span>}
+          <span class="nav__text">{item.label}</span>
+        </a>
+      </li>
+    ))
+  }
+  <li class="nav__ig">
+    <a href={siteConfig.instagramUrl} class="nav__link" rel="me noopener" target="_blank">
+      {variant === 'menu' && <span class="nav__num label" aria-hidden="true">{pad(items.length + 1)}</span>}
+      <span class="nav__text">{t.instagram}</span>
+      <span class="nav__ext" aria-hidden="true">↗</span>
+      <span class="visually-hidden">(opens in a new tab)</span>
+    </a>
+  </li>
+</ul>
+
+<style>
+  .nav--header {
+    display: flex;
+    gap: clamp(1.25rem, 2.4vw, 2.75rem);
+    align-items: center;
+  }
+  .nav--header .nav__link {
+    display: inline-flex;
+    gap: 0.35em;
+    align-items: baseline;
+    padding-block: 0.75rem;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 100% calc(100% - 0.55rem);
+    background-repeat: no-repeat;
+    transition: background-size 0.6s var(--ease-out);
+  }
+  .nav--header .nav__link:hover,
+  .nav--header .nav__link[aria-current='page'] {
+    background-size: 100% 1px;
+    background-position: 0 calc(100% - 0.55rem);
+  }
+  .nav__ext { font-size: 0.9em; }
+
+  /* Full-screen mobile menu */
+  .nav--menu { display: grid; gap: 0.15rem; }
+  .nav--menu .nav__link {
+    display: grid;
+    grid-template-columns: 2.75rem 1fr auto;
+    align-items: baseline;
+    padding-block: 0.55rem;
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav--menu .nav__text {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 11vw, 4.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+  .nav--menu .nav__link[aria-current='page'] .nav__text { font-style: italic; }
+  .nav--menu .nav__num { color: var(--muted); }
+  .nav--menu .nav__ext { font-family: var(--sans); font-size: 1rem; }
+
+  /* Footer */
+  .nav--footer { display: grid; gap: 0.35rem; }
+  .nav--footer .nav__link {
+    display: inline-flex;
+    gap: 0.35em;
+    padding-block: 0.3rem;
+    font-size: 1.25rem;
+    text-decoration: none;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.6s var(--ease-out);
+  }
+  .nav--footer .nav__link:hover {
+    background-size: 100% 1px;
+    background-position: 0 100%;
+  }
+  .nav--footer .nav__ig { margin-top: 0; }
+</style>
