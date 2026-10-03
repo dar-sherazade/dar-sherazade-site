@@ -80,7 +80,11 @@ const schemas = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      // Safety net: if the animation script cannot run, show everything.
+      window.__revealSafety = setTimeout(function () { document.documentElement.classList.add('reveal-all'); }, 2500);
+    </script>
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}

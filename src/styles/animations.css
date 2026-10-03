@@ -65,6 +65,14 @@
   animation-timing-function: var(--ease);
 }
 
+.reveal-all .reveal,
+.reveal-all .reveal-image,
+.reveal-all .reveal-image img {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

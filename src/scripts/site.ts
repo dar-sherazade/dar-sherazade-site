@@ -5,21 +5,29 @@
  *  3. opens and closes the full-screen mobile menu.
  */
 
-// 1. Scroll reveals
+// 1. Scroll reveals (cancels the show-everything safety net set in BaseLayout)
+clearTimeout((window as unknown as { __revealSafety?: number }).__revealSafety);
 const revealables = document.querySelectorAll<HTMLElement>('.reveal, .reveal-image');
 if ('IntersectionObserver' in window) {
+  const targetOf = new Map<Element, HTMLElement>();
   const io = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         if (entry.isIntersecting) {
-          entry.target.classList.add('is-in');
+          (targetOf.get(entry.target) ?? entry.target).classList.add('is-in');
           io.unobserve(entry.target);
         }
       }
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
   );
-  revealables.forEach((el) => io.observe(el));
+  // Observe the unclipped parent of masked images: a fully clipped
+  // element never counts as visible to IntersectionObserver.
+  revealables.forEach((el) => {
+    const watch = el.classList.contains('reveal-image') && el.parentElement ? el.parentElement : el;
+    targetOf.set(watch, el);
+    io.observe(watch);
+  });
 } else {
   revealables.forEach((el) => el.classList.add('is-in'));
 }
