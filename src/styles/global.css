@@ -4,22 +4,26 @@
    ========================================================================== */
 
 :root {
-  /* Palette — parchment, stone, faded textile, dark brown, charcoal. */
-  --bg: #f1ede6;
-  --surface: #e6dfd4;
-  --surface-2: #d9d0c2;
-  --ink: #1b1815;
-  --ink-soft: #3a332c;
-  --muted: #625b52;
-  --line: rgba(27, 24, 21, 0.16);
-  --line-strong: rgba(27, 24, 21, 0.42);
-  --accent: #6e3b2a; /* faded madder, used sparingly */
+  /* Palette — taken from the Dar Sherazade photographs:
+     carved plaster (ivory, stone), zellige green, saffron tile,
+     cedar door and the black of the checkerboard floor. */
+  --bg: #f3eee6;
+  --surface: #e9e1d5;
+  --surface-2: #ddd3c4;
+  --ink: #1c1a17;
+  --ink-soft: #3a342d;
+  --muted: #5f5850;
+  --line: rgba(28, 26, 23, 0.16);
+  --line-strong: rgba(28, 26, 23, 0.42);
+  --accent: #2f5e50;  /* zellige green */
+  --saffron: #d49a45; /* tile yellow — only on dark green */
+  --cedar: #7a3b2e;   /* carved door */
 
-  --dark: #171412;
-  --dark-surface: #221e1a;
-  --dark-ink: #ede7dc;
-  --dark-muted: #a99f92;
-  --dark-line: rgba(237, 231, 220, 0.18);
+  --dark: #17302a;    /* deep zellige green */
+  --dark-surface: #1f3b33;
+  --dark-ink: #f1ebdf;
+  --dark-muted: #afbdb3;
+  --dark-line: rgba(241, 235, 223, 0.2);
 
   /* Type */
   --serif: 'EB Garamond Variable', 'EB Garamond', Garamond, 'Iowan Old Style', 'Times New Roman', serif;
@@ -119,7 +123,7 @@ body::after {
   border: 0;
 }
 
-::selection { background: var(--ink); color: var(--bg); }
+::selection { background: var(--accent); color: var(--bg); }
 
 /* -------- Layout primitives -------- */
 .wrap {
@@ -147,6 +151,7 @@ body::after {
   --line: var(--dark-line);
   --muted: var(--dark-muted);
 }
+.on-dark .label:not(.muted) { color: var(--saffron); }
 
 /* -------- Links -------- */
 a { color: inherit; }

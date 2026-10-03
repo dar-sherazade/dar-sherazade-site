@@ -1,9 +1,9 @@
 ---
 title: "About"
-description: "Shera Creates is an independent project documenting and reinterpreting Algerian dress traditions, with a particular focus on the kaftan."
+description: "Dar Sherazade is an independent project documenting and reinterpreting Algerian dress traditions, with a particular focus on the kaftan."
 ---
 
-Shera Creates is an independent project dedicated to documenting and reinterpreting Algerian dress traditions, with a particular focus on the kaftan.
+Dar Sherazade is an independent project dedicated to documenting and reinterpreting Algerian dress traditions, with a particular focus on the kaftan.
 
 The project brings together research, image-making, collecting, documentation and contemporary creation. It began on Instagram and continues there, alongside this site, which serves as its archive and journal.
 
@@ -15,6 +15,6 @@ Each garment in the archive is photographed, described and researched over time.
 
 ## A note on history
 
-The kaftan belongs to a long history shared across many regions and periods. Shera Creates looks closely at its Algerian forms, and aims to present that history with care: citing sources, distinguishing what is documented from what is remembered, and leaving room for what is still unknown.
+The kaftan belongs to a long history shared across many regions and periods. Dar Sherazade looks closely at its Algerian forms, and aims to present that history with care: citing sources, distinguishing what is documented from what is remembered, and leaving room for what is still unknown.
 
 <p class="placeholder">[Placeholder — acknowledgements: makers, families, archives and collaborators. To be written.]</p>

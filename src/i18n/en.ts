@@ -21,21 +21,21 @@ export const t = {
     introStatement:
       'The kaftan is more than a garment. It carries histories of craft, ceremony, transmission and reinvention.',
     introBody: [
-      'Shera Creates documents Algerian kaftans and related dress traditions through objects, archives, images and stories.',
+      'Dar Sherazade documents Algerian kaftans and related dress traditions through objects, archives, images and stories.',
       'The kaftan belongs to a long history shared across many regions and periods. This project looks closely at its Algerian forms — how they are made, worn, kept and reimagined today.',
     ],
     archiveEyebrow: 'The Archive',
-    archiveTitle: 'Garments, read closely',
+    archiveTitle: 'The collection, piece by piece',
     archiveLink: 'View the archive',
     quote: 'A garment can be read as an archive.',
-    quoteCaption: 'A way of looking',
+    quoteCaption: 'The courtyard series',
     journalEyebrow: 'Stories & Research',
     journalTitle: 'Journal',
     journalLink: 'Read the journal',
     availableEyebrow: 'Private collection',
-    availableTitle: 'Selected pieces occasionally become available through private enquiry.',
+    availableTitle: 'Each piece in the collection is offered individually, through private enquiry.',
     availableLink: 'View available pieces',
-    aboutEyebrow: 'Shera Creates',
+    aboutEyebrow: 'Dar Sherazade',
     aboutText:
       'Independent research, image-making and contemporary creation around Algerian dress heritage.',
     aboutLink: 'About the project',
@@ -61,7 +61,7 @@ export const t = {
     countMany: 'pieces',
     empty: 'No pieces match these filters.',
     no: 'No.',
-    availableTag: 'Available by private enquiry',
+    availableTag: 'Available by enquiry',
     sampleNotice:
       'Sample entry — the photographs and details shown are placeholders, to be replaced with documented information.',
   },
@@ -94,13 +94,13 @@ export const t = {
       'To ask about this piece, write to us directly. We are happy to share further photographs, measurements and condition notes.',
     instagram: 'Enquire on Instagram',
     email: 'Enquire by email',
-    subjectPrefix: 'Shera Creates enquiry —',
+    subjectPrefix: 'Dar Sherazade enquiry —',
   },
 
   available: {
     title: 'Available Pieces',
     intro:
-      'A small selection of pieces from the Shera Creates collection occasionally becomes available through private enquiry.',
+      'The pieces of the Dar Sherazade collection are offered individually, through private enquiry.',
     note:
       'There is no online shop. Each piece is offered individually; please get in touch to ask about it.',
     empty: 'No pieces are available at the moment. New pieces are announced on Instagram.',

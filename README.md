@@ -1,6 +1,6 @@
-# Shera Creates
+# Dar Sherazade
 
-The website of **Shera Creates** ([@sheracreates](https://www.instagram.com/sheracreates/)), an independent cultural project about Algerian kaftans and Algerian dress heritage: craft, archives, regional traditions and contemporary creation.
+The website of **Dar Sherazade** (Instagram: [@sheracreates](https://www.instagram.com/sheracreates/)), an independent cultural project about Algerian kaftans and Algerian dress heritage: craft, archives, regional traditions and contemporary creation.
 
 The site is an **editorial archive, not a shop**. It has no cart, checkout, payments or customer accounts. When a piece is available, visitors are invited to enquire privately by Instagram or email.
 
@@ -77,7 +77,7 @@ All of these are in **one file: `src/config.ts`**.
 
 ```ts
 export const siteConfig = {
-  name: 'Shera Creates',
+  name: 'Dar Sherazade',
   instagramHandle: '@sheracreates',
   instagramUrl: 'https://www.instagram.com/sheracreates/',
   email: 'YOUR_EMAIL_ADDRESS',          // ← replace with the real address
@@ -89,7 +89,7 @@ export const siteConfig = {
 Until `email` is changed, the site shows `YOUR_EMAIL_ADDRESS` on the Contact page, and the "Enquire by email" buttons point to the Contact page. Once a real address is set, they automatically open an email with a subject already filled in, for example:
 
 ```
-Shera Creates enquiry — Kaftan Zohra (SC-002)
+Dar Sherazade enquiry — Ivory Lace Kaftan (DS-001)
 ```
 
 ---
@@ -100,25 +100,25 @@ Each kaftan has **its own folder** in `src/content/kaftans/`, containing one tex
 
 ```
 src/content/kaftans/
-└── kaftan-zohra/
-    ├── index.md                         ← the text and details
-    ├── replace-me-kaftan-02-cover.jpg   ← main photograph
-    ├── replace-me-kaftan-02-detail-01.jpg
-    └── ...
+└── ivory-lace-kaftan/
+    ├── index.md            ← the text and details
+    ├── cover.jpg           ← main photograph (2:3 portrait)
+    ├── detail-bodice.jpg   ← close-ups shown under "Details"
+    └── detail-hem.jpg
 ```
 
-The folder name becomes the page address: `kaftan-zohra` → `/archive/kaftan-zohra/`. Use lowercase letters, numbers and hyphens only.
+The folder name becomes the page address: `ivory-lace-kaftan` → `/archive/ivory-lace-kaftan/`. Use lowercase letters, numbers and hyphens only.
 
 ### Steps
 
-1. **Copy an existing folder**, for example `kaftan-zohra`, and rename the copy (e.g. `kaftan-amina`).
+1. **Copy an existing folder**, for example `ivory-lace-kaftan`, and rename the copy (e.g. `green-brocade-kaftan`).
 2. **Add the photographs** to the new folder and delete the old ones.
 3. **Open `index.md`** and change the details:
 
 ```yaml
 ---
-title: "Kaftan Amina"
-archiveNumber: "SC-009"          # catalogue reference
+title: "Green Brocade Kaftan"
+archiveNumber: "DS-009"          # catalogue reference
 order: 9                          # position in the archive → shown as "No. 09"
 region: "To be documented"        # keep "To be documented" until it is known
 period: "To be documented"
@@ -128,7 +128,7 @@ materials:
 techniques:
   - Metallic-thread embroidery
 condition: "Good — minor wear at the cuffs"
-collection: "Shera Creates collection"
+collection: "Dar Sherazade collection"
 collectionNote: "Research in progress"   # optional
 available: false                  # true → private enquiry section + "Available" page
 featured: false                   # true → shown on the homepage (the first four)
@@ -227,18 +227,19 @@ A paragraph of text.
 ## Changing images
 
 - **Archive and journal images** are in their own content folders (see above). To replace one, either keep the same file name, or put in a new file and update its name in `index.md`.
-- **Homepage hero:** `src/assets/home/replace-me-hero.jpg`
-- **Homepage full-width image:** `src/assets/home/replace-me-editorial.jpg`
-- **About page image:** `src/assets/about/replace-me-about.jpg`
+- **Brand banner (top of the homepage):** `src/assets/brand/dar-sherazade-banner.jpg`
+- **Logo in the header:** `src/assets/brand/wordmark-ink.png` (a light version, `wordmark-ivory.png`, is also there)
+- **Courtyard photographs** (homepage and About page): `src/assets/home/courtyard-01.jpg` to `courtyard-03.jpg`
 - **Link-preview image** (when the site is shared on social media): `public/social/og-default.jpg`, 1200 × 630 px
 - **Favicon:** `public/favicon.ico` and `public/favicon/`
+- **Original, unedited photographs:** `photos/originals/` (not used by the site; kept for reference)
 
-If you rename a homepage or About image, update the `import` line at the top of `src/pages/index.astro` or `src/pages/about.astro`.
+If you rename one of these images, update the `import` line at the top of `src/pages/index.astro`, `src/pages/about.astro` or `src/components/Header.astro`.
 
 **Photograph tips**
 
-- Use JPEGs at least **2000 px** on the long side. The site creates the smaller versions automatically.
-- Covers are cropped to a **4:5 portrait** ratio. Use `coverPosition` (e.g. `"50% 20%"`) to keep the important part in frame.
+- Use JPEGs at least **1500 px** on the long side. The site creates the smaller versions automatically.
+- Collection covers are **2:3 portraits** with the model at the same scale in every photo (head near the top, hem near the bottom), so the pieces line up evenly. The current covers were straightened, reframed this way and given a soft blur towards the edges of the room.
 - Always write an `alt` description. It is read aloud to people using screen readers.
 - Very large files (over ~8 MB) slow down publishing. Export at around 2500 px and 85% quality.
 

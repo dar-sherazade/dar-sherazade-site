@@ -41,7 +41,7 @@ const details: { term: string; value: string }[] = [
   { term: t.piece.status, value: d.available ? t.piece.statusAvailable : t.piece.statusArchive },
 ];
 
-const galleryLayout = ['g g--wide', 'g g--left', 'g g--right'];
+const galleryLayout = ['g g--left', 'g g--right', 'g g--wide'];
 
 const site = Astro.site ?? new URL(siteConfig.siteUrl);
 const jsonLd = {
@@ -69,9 +69,8 @@ const jsonLd = {
         <ImageReveal
           src={d.cover}
           alt={d.coverAlt}
-          ratio="4 / 5"
           position={d.coverPosition}
-          sizes="(min-width: 900px) 56vw, 100vw"
+          sizes="(min-width: 900px) 46vw, 100vw"
           eager
           reveal={false}
           class="piece__cover"
@@ -156,9 +155,9 @@ const jsonLd = {
                   src={img.src}
                   alt={img.alt}
                   position={img.position}
-                  sizes={i % 3 === 0 ? '(min-width: 900px) 80vw, 100vw' : '(min-width: 900px) 40vw, 85vw'}
+                  sizes={i % 3 === 2 ? '(min-width: 900px) 80vw, 100vw' : '(min-width: 900px) 34vw, 85vw'}
                   caption={`${t.piece.fig} ${i + 2} — ${img.caption ?? img.view ?? d.title}`}
-                  captionSide={i % 3 !== 0}
+                  captionSide={i % 3 !== 2}
                   class={galleryLayout[i % 3]}
                 />
               ))}
@@ -219,8 +218,8 @@ const jsonLd = {
   .piece__enquire { margin-top: 1.5rem; }
 
   @media (min-width: 900px) {
-    .piece__media { grid-column: 1 / span 7; }
-    .piece__info { grid-column: 9 / span 4; }
+    .piece__media { grid-column: 1 / span 6; }
+    .piece__info { grid-column: 8 / span 5; }
     .piece__sticky {
       position: sticky;
       top: calc(var(--header-h) + 1.5rem);
@@ -253,7 +252,7 @@ const jsonLd = {
   .gallery__grid > :global(.g--right) { width: 85%; justify-self: end; }
   @media (min-width: 900px) {
     .gallery__grid > :global(.g--wide) { grid-column: 2 / span 10; }
-    .gallery__grid > :global(.g--left) { grid-column: 1 / span 5; width: auto; }
+    .gallery__grid > :global(.g--left) { grid-column: 2 / span 4; width: auto; }
     .gallery__grid > :global(.g--right) { grid-column: 8 / span 4; width: auto; margin-top: clamp(6rem, 14vw, 14rem); }
   }
 </style>

@@ -10,12 +10,12 @@
  *  - instagram:  handle and profile link.
  */
 export const siteConfig = {
-  name: 'Shera Creates',
+  name: 'Dar Sherazade',
   /** Short line used under the name and in the footer. */
   tagline: 'Algerian dress, archives and contemporary creation.',
   /** Default description for search engines and link previews. */
   description:
-    'Shera Creates is an independent cultural project documenting Algerian kaftans and related dress traditions through craft, archives, images and contemporary creation.',
+    'Dar Sherazade is an independent cultural project documenting Algerian kaftans and related dress traditions through craft, archives, images and contemporary creation.',
   instagramHandle: '@sheracreates',
   instagramUrl: 'https://www.instagram.com/sheracreates/',
   email: 'YOUR_EMAIL_ADDRESS',

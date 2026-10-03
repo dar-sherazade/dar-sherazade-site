@@ -7,7 +7,7 @@ import { url } from '../lib/url';
 import { t } from '../i18n/en';
 
 // The text of this page lives in src/content/pages/about.md
-import aboutImage from '../assets/about/replace-me-about.jpg';
+import aboutImage from '../assets/home/courtyard-03.jpg';
 
 const page = await getEntry('pages', 'about');
 if (!page) throw new Error('Missing src/content/pages/about.md');
@@ -24,8 +24,7 @@ const { Content } = await render(page);
     <div class="about__image">
       <ImageReveal
         src={aboutImage}
-        alt="Placeholder image — to be replaced with a photograph for the About page."
-        ratio="4 / 5"
+        alt="Two women standing back to back in front of a carved cedar door, both in lilac sequinned kaftans."
         sizes="(min-width: 900px) 33vw, 100vw"
         eager
       />

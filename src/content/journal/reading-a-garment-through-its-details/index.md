@@ -10,7 +10,7 @@ references: []
 placeholder: true
 ---
 
-*[Editorial placeholder.]* This article will set out how pieces in the Shera Creates archive are examined and recorded, so that readers can follow — and question — the way each entry is built.
+*[Editorial placeholder.]* This article will set out how pieces in the Dar Sherazade archive are examined and recorded, so that readers can follow — and question — the way each entry is built.
 
 ## The checklist
 

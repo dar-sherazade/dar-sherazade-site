@@ -26,7 +26,7 @@ const filters = [
   {
     key: 'availability',
     label: t.archive.filters.availability,
-    options: kaftans.some((k) => k.data.available)
+    options: kaftans.some((k) => k.data.available) && kaftans.some((k) => !k.data.available)
       ? [
           { value: 'available', label: t.archive.availableOption },
           { value: 'archive', label: t.archive.archiveOption },
@@ -34,16 +34,6 @@ const filters = [
       : [],
   },
 ].filter((f) => f.options.length > 1);
-
-/* Editorial rhythm: six positions that repeat down the page. */
-const layout = [
-  { cls: 'ag ag--1', shape: 'portrait', sizes: '(min-width: 900px) 55vw, 100vw' },
-  { cls: 'ag ag--2', shape: 'tall', sizes: '(min-width: 900px) 30vw, 80vw' },
-  { cls: 'ag ag--3', shape: 'tall', sizes: '(min-width: 900px) 30vw, 80vw' },
-  { cls: 'ag ag--4', shape: 'portrait', sizes: '(min-width: 900px) 40vw, 100vw' },
-  { cls: 'ag ag--5', shape: 'portrait', sizes: '(min-width: 900px) 40vw, 80vw' },
-  { cls: 'ag ag--6', shape: 'landscape', sizes: '(min-width: 900px) 48vw, 100vw' },
-] as const;
 
 const countText = (n: number) => `${n} ${n === 1 ? t.archive.countOne : t.archive.countMany}`;
 ---
@@ -83,16 +73,16 @@ const countText = (n: number) => `${n} ${n === 1 ? t.archive.countOne : t.archiv
   }
 
   <section class="wrap archive-section" aria-label={t.archive.title}>
-    <div class="grid archive-grid" data-archive-grid>
+    <div class="archive-grid" data-archive-grid>
       {
         kaftans.map((entry, i) => (
           <KaftanCard
             entry={entry}
-            shape={layout[i % 6].shape}
-            sizes={layout[i % 6].sizes}
-            class={layout[i % 6].cls}
+            sizes="(min-width: 900px) 30vw, (min-width: 600px) 46vw, 100vw"
+            class="ag"
             headingTag="h2"
-            eager={i < 2}
+            delay={(i % 3) * 0.08}
+            eager={i < 3}
           />
         ))
       }
@@ -174,30 +164,23 @@ const countText = (n: number) => `${n} ${n === 1 ? t.archive.countOne : t.archiv
     text-underline-offset: 0.3em;
   }
 
-  /* Editorial archive grid */
+  /* Archive grid: a calm line-up, the middle column set lower */
   .archive-section { padding-top: clamp(3rem, 6vw, 5rem); padding-bottom: var(--section); }
-  .archive-grid { row-gap: clamp(3.5rem, 8vw, 8rem); }
-  .archive-grid > :global(.ag) { grid-column: 1 / -1; }
-  .archive-grid > :global(.ag:nth-child(even)) { width: 82%; justify-self: end; }
-  .archive-grid > :global([hidden]) { display: none; }
-
-  @media (min-width: 900px) {
-    .archive-grid > :global(.ag:nth-child(even)) { width: auto; justify-self: stretch; }
-    .archive-grid > :global(.ag--1) { grid-column: 1 / span 7; }
-    .archive-grid > :global(.ag--2) { grid-column: 9 / span 4; margin-top: clamp(6rem, 14vw, 14rem); }
-    .archive-grid > :global(.ag--3) { grid-column: 2 / span 4; }
-    .archive-grid > :global(.ag--4) { grid-column: 7 / span 5; margin-top: clamp(4rem, 10vw, 10rem); }
-    .archive-grid > :global(.ag--5) { grid-column: 1 / span 5; }
-    .archive-grid > :global(.ag--6) { grid-column: 7 / span 6; margin-top: clamp(3rem, 8vw, 8rem); }
-
-    /* When filtered: a calm, even grid */
-    .archive-grid:global(.is-filtered) > :global(.ag) {
-      grid-column: span 4;
-      margin-top: 0;
-    }
+  .archive-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(3.5rem, 7vw, 6rem) var(--col-gap);
+    align-items: start;
   }
-  @media (max-width: 899px) {
-    .archive-grid:global(.is-filtered) > :global(.ag) { width: 100%; }
+  .archive-grid > :global([hidden]) { display: none; }
+  @media (min-width: 600px) {
+    .archive-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .archive-grid:not(:global(.is-filtered)) > :global(.ag:nth-child(even)) { margin-top: 4rem; }
+  }
+  @media (min-width: 900px) {
+    .archive-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .archive-grid:not(:global(.is-filtered)) > :global(.ag:nth-child(even)) { margin-top: 0; }
+    .archive-grid:not(:global(.is-filtered)) > :global(.ag:nth-child(3n + 2)) { margin-top: 6rem; }
   }
   .archive-empty { padding-block: 4rem; color: var(--muted); }
 </style>

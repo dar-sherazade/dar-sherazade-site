@@ -21,7 +21,7 @@ const kaftans = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      /** Catalogue reference, e.g. "SC-001". */
+      /** Catalogue reference, e.g. "DS-001". */
       archiveNumber: z.string(),
       /** Position in the archive (1, 2, 3…). Shown as "No. 01". */
       order: z.number().int(),
@@ -30,7 +30,7 @@ const kaftans = defineCollection({
       materials: z.array(z.string()).default([]),
       techniques: z.array(z.string()).default([]),
       condition: z.string().default(TBD),
-      collection: z.string().default('Shera Creates collection'),
+      collection: z.string().default('Dar Sherazade collection'),
       collectionNote: z.string().optional(),
       /** true → shows the private enquiry section and the /available page. */
       available: z.boolean().default(false),
@@ -76,7 +76,7 @@ const journal = defineCollection({
       title: z.string(),
       subtitle: z.string().optional(),
       date: z.coerce.date(),
-      author: z.string().default('Shera Creates'),
+      author: z.string().default('Dar Sherazade'),
       cover: image(),
       coverAlt: z.string(),
       coverCaption: z.string().optional(),

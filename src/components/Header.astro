@@ -4,7 +4,9 @@
  * becomes solid once the visitor scrolls past the top of the hero.
  * On small screens the links move into a full-screen menu.
  */
+import { Image } from 'astro:assets';
 import Navigation from './Navigation.astro';
+import wordmark from '../assets/brand/wordmark-ink.png';
 import { siteConfig } from '../config';
 import { url } from '../lib/url';
 import { t } from '../i18n/en';
@@ -17,9 +19,8 @@ const { mode = 'solid' } = Astro.props;
 
 <header class="site-header" data-mode={mode} data-header>
   <div class="wrap site-header__inner">
-    <a class="wordmark" href={url('/')}>
-      <span>{siteConfig.name}</span>
-      <span class="visually-hidden">— home</span>
+    <a class="wordmark" href={url('/')} aria-label={`${siteConfig.name} — home`}>
+      <Image src={wordmark} alt="" height={48} densities={[1, 2, 3]} format="webp" loading="eager" />
     </a>
 
     <nav class="site-header__nav" aria-label={t.mainNavigation}>
@@ -82,13 +83,13 @@ const { mode = 'solid' } = Astro.props;
   }
 
   .wordmark {
-    font-family: var(--serif);
-    font-size: 1.0625rem;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    text-decoration: none;
-    white-space: nowrap;
-    padding-block: 0.75rem;
+    display: block;
+    padding-block: 0.4rem;
+    flex: none;
+  }
+  .wordmark :global(img) {
+    height: 3rem;
+    width: auto;
   }
 
   .site-header__nav { display: none; }

@@ -16,3 +16,7 @@ pnpm-debug.log*
 
 # macOS
 .DS_Store
+
+# local previews created by the Claude app
+Claude outputs/
+.preview-tmp/

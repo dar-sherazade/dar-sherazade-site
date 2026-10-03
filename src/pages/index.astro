@@ -11,82 +11,69 @@ import { url, pad } from '../lib/url';
 import { t } from '../i18n/en';
 
 // Homepage images — replace these files to change them.
-import hero from '../assets/home/replace-me-hero.jpg';
-import editorial from '../assets/home/replace-me-editorial.jpg';
+import banner from '../assets/brand/dar-sherazade-banner.jpg';
+import courtyard1 from '../assets/home/courtyard-01.jpg';
+import courtyard2 from '../assets/home/courtyard-02.jpg';
+import courtyard3 from '../assets/home/courtyard-03.jpg';
 
-const heroAlt =
-  'A model on a runway wearing a long black kaftan with gold-coloured embroidery along the front opening, the sleeves and the hem.';
-const editorialAlt = 'Placeholder image — to be replaced with a full-width editorial photograph.';
+const bannerAlt =
+  'Dar Sherazade, with the name also written in Arabic, in white letters over green, saffron and lavender zellige tiles beside a carved marble column.';
+const courtyard1Alt =
+  'In a courtyard of carved white plaster and zellige tiles, a woman in a fuchsia and ivory kaftan with a gold satin belt holds a bunch of herbs in front of her face.';
+const courtyard2Alt =
+  'Two women in the courtyard, one in a green and gold brocade kaftan and one in a black and turquoise kaftan, each holding a lantern in front of her face.';
+const courtyard3Alt =
+  'Two women standing back to back in front of a carved cedar door, both in lilac sequinned kaftans.';
 
 const kaftans = await getKaftans();
 const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
-const available = kaftans.filter((k) => k.data.available).slice(0, 3);
+const more = kaftans.filter((k) => k.data.available && !k.data.featured).slice(0, 3);
 const articles = (await getArticles()).slice(0, 3);
-const heroPiece = kaftans[0];
-
-const featuredLayout = [
-  { cls: 'fa fa--1', shape: 'portrait', sizes: '(min-width: 900px) 55vw, 100vw' },
-  { cls: 'fa fa--2', shape: 'tall', sizes: '(min-width: 900px) 30vw, 80vw' },
-  { cls: 'fa fa--3', shape: 'tall', sizes: '(min-width: 900px) 30vw, 80vw' },
-  { cls: 'fa fa--4', shape: 'portrait', sizes: '(min-width: 900px) 48vw, 100vw' },
-] as const;
 ---
 
-<BaseLayout headerMode="overlay">
-  <!-- Hero -->
+<BaseLayout>
+  <!-- Hero: the Dar Sherazade banner -->
   <section class="hero" aria-labelledby="hero-title">
-    <div class="wrap hero__grid">
-      <div class="hero__media">
-        <div class="hero__frame frame">
-          <Picture
-            src={hero}
-            alt={heroAlt}
-            widths={[480, 720, 1080, 1440, 2000].filter((w) => w < hero.width).concat(hero.width)}
-            sizes="(min-width: 900px) 48vw, 100vw"
-            formats={['webp']}
-            quality={82}
-            loading="eager"
-            fetchpriority="high"
-            style="object-position: 50% 22%;"
-          />
-        </div>
-        {
-          heroPiece && (
-            <p class="hero__caption meta">
-              <a class="link link--quiet" href={url(`/archive/${heroPiece.id}/`)}>
-                {t.archive.no} {pad(heroPiece.data.order)} — {heroPiece.data.title}
-              </a>
-            </p>
-          )
-        }
-      </div>
-
-      <div class="hero__text">
-        <h1 id="hero-title" class="display hero__title">
-          <span class="line-mask"><span>Shera</span></span>
-          <span class="line-mask"><span class="italic-display">Creates</span></span>
-        </h1>
-        <p class="hero__line">{t.home.heroLine}</p>
-        <a class="hero__cue label" href="#intro">
-          <span class="hero__cue-line" aria-hidden="true"></span>
-          {t.home.scroll}
-        </a>
-      </div>
+    <h1 id="hero-title" class="visually-hidden">{siteConfig.name}</h1>
+    <div class="hero__banner frame">
+      <Picture
+        src={banner}
+        alt={bannerAlt}
+        widths={[640, 1050, 1440, 2100]}
+        sizes="100vw"
+        formats={['webp']}
+        quality={84}
+        loading="eager"
+        fetchpriority="high"
+        style="object-position: 40% 66%;"
+      />
+    </div>
+    <div class="wrap hero__meta">
+      <p class="hero__line">{t.home.heroLine}</p>
+      <a class="hero__cue label" href="#intro">
+        <span class="hero__cue-line" aria-hidden="true"></span>
+        {t.home.scroll}
+      </a>
     </div>
   </section>
 
   <!-- Introduction -->
   <section id="intro" class="section intro" aria-label="Introduction">
-    <div class="wrap grid">
-      <p class="label intro__label reveal">{siteConfig.name}</p>
-      <p class="statement intro__statement reveal">{t.home.introStatement}</p>
-      <div class="intro__body body-text reveal" style="--delay: .15s">
-        {t.home.introBody.map((p) => <p>{p}</p>)}
+    <div class="wrap grid intro__grid">
+      <div class="intro__text">
+        <p class="label intro__label reveal">{siteConfig.name}</p>
+        <p class="statement intro__statement reveal">{t.home.introStatement}</p>
+        <div class="intro__body body-text reveal" style="--delay: .15s">
+          {t.home.introBody.map((p) => <p>{p}</p>)}
+        </div>
+      </div>
+      <div class="intro__image">
+        <ImageReveal src={courtyard1} alt={courtyard1Alt} sizes="(min-width: 900px) 40vw, 100vw" caption={t.home.quoteCaption} />
       </div>
     </div>
   </section>
 
-  <!-- Featured archive -->
+  <!-- Featured pieces: a standard line-up -->
   <section class="section section--flush-top featured" aria-labelledby="featured-title">
     <div class="wrap">
       <SectionHeading
@@ -95,15 +82,10 @@ const featuredLayout = [
         id="featured-title"
         link={{ href: url('/archive/'), label: t.home.archiveLink }}
       />
-      <div class="grid featured__grid">
+      <div class="lineup">
         {
           featured.map((entry, i) => (
-            <KaftanCard
-              entry={entry}
-              shape={featuredLayout[i % 4].shape}
-              sizes={featuredLayout[i % 4].sizes}
-              class={featuredLayout[i % 4].cls}
-            />
+            <KaftanCard entry={entry} sizes="(min-width: 900px) 24vw, 46vw" delay={i * 0.08} class="lineup__item" />
           ))
         }
       </div>
@@ -115,14 +97,19 @@ const featuredLayout = [
     </div>
   </section>
 
-  <!-- Editorial image and quote -->
-  <section class="quote on-dark" aria-label="Editorial">
-    <ImageReveal src={editorial} alt={editorialAlt} ratio="16 / 9" sizes="100vw" class="quote__image" />
-    <div class="wrap grid quote__text">
-      <p class="label quote__label reveal">{t.home.quoteCaption}</p>
-      <blockquote class="quote__body reveal">
-        <p>{t.home.quote}</p>
-      </blockquote>
+  <!-- Courtyard diptych and quote -->
+  <section class="quote on-dark" aria-label="The courtyard series">
+    <div class="wrap">
+      <div class="diptych">
+        <ImageReveal src={courtyard2} alt={courtyard2Alt} sizes="(min-width: 700px) 46vw, 100vw" />
+        <ImageReveal src={courtyard3} alt={courtyard3Alt} sizes="(min-width: 700px) 46vw, 100vw" delay={0.12} class="diptych__second" />
+      </div>
+      <div class="grid quote__text">
+        <p class="label quote__label reveal">{t.home.quoteCaption}</p>
+        <blockquote class="quote__body reveal">
+          <p>{t.home.quote}</p>
+        </blockquote>
+      </div>
     </div>
   </section>
 
@@ -146,9 +133,9 @@ const featuredLayout = [
     </div>
   </section>
 
-  <!-- Available -->
+  <!-- Private collection -->
   {
-    available.length > 0 && (
+    more.length > 0 && (
       <section class="section avail" aria-labelledby="avail-title">
         <div class="wrap grid avail__grid">
           <div class="avail__text">
@@ -161,13 +148,12 @@ const featuredLayout = [
             </p>
           </div>
           <ul class="avail__items" role="list">
-            {available.map((entry, i) => (
+            {more.map((entry, i) => (
               <li class={`avail__item avail__item--${i + 1}`}>
                 <a href={url(`/archive/${entry.id}/`)} class="avail__link">
                   <ImageReveal
                     src={entry.data.cover}
                     alt={entry.data.coverAlt}
-                    ratio="3 / 4"
                     position={entry.data.coverPosition}
                     sizes="(min-width: 900px) 18vw, 45vw"
                     delay={i * 0.12}
@@ -211,128 +197,85 @@ const featuredLayout = [
 
 <style>
   /* ---------- Hero ---------- */
-  .hero {
-    padding-top: var(--header-h);
-    min-height: 100svh;
-  }
-  .hero__grid {
-    display: grid;
-    gap: 1.75rem;
-    padding-bottom: 2.5rem;
-  }
-  .hero__frame {
-    aspect-ratio: 4 / 5;
-    max-height: 74svh;
+  .hero__banner {
     width: 100%;
-    animation: mask-down 1.7s var(--ease-out) 0.1s both;
+    aspect-ratio: 1050 / 600;
+    max-height: calc(100svh - var(--header-h) - 6rem);
+    min-height: 15rem;
+    animation: mask-down 1.6s var(--ease-out) 0.05s both;
   }
-  .hero__frame :global(picture) { display: contents; }
-  .hero__frame :global(img) {
+  .hero__banner :global(picture) { display: contents; }
+  .hero__banner :global(img) {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    animation: settle 2.6s var(--ease-out) 0.1s both;
+    animation: settle 2.4s var(--ease-out) 0.05s both;
   }
-  .hero__caption {
-    margin-top: 0.75rem;
-    animation: fade-in 1s var(--ease) 1.4s both;
+  .hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem 2rem;
+    padding-block: 1.5rem 0.5rem;
   }
-  .hero__title { margin-left: -0.04em; font-size: clamp(4rem, 23vw, 9rem); }
-  @media (min-width: 900px) { .hero__title { font-size: clamp(4rem, 13.5vw, 14.5rem); } }
-  .hero__title .line-mask > span { animation: rise-in 1.3s var(--ease-out) both; }
-  .hero__title .line-mask:nth-child(1) > span { animation-delay: 0.45s; }
-  .hero__title .line-mask:nth-child(2) > span { animation-delay: 0.6s; }
   .hero__line {
-    margin-top: 1.25rem;
     font-size: clamp(1.25rem, 1.9vw, 1.75rem);
     line-height: 1.3;
     font-style: italic;
-    max-width: 24ch;
-    animation: fade-in 1.2s var(--ease) 1.05s both;
+    animation: fade-in 1.2s var(--ease) 0.9s both;
   }
   .hero__cue {
     display: inline-flex;
     align-items: center;
     gap: 0.9rem;
-    margin-top: 2rem;
     padding-block: 0.5rem;
     text-decoration: none;
-    animation: fade-in 1.2s var(--ease) 1.4s both;
+    animation: fade-in 1.2s var(--ease) 1.2s both;
   }
   .hero__cue-line {
     display: block;
     width: 1px;
-    height: 2.75rem;
+    height: 2.5rem;
     background: currentColor;
     animation: cue 2.8s var(--ease) 2s infinite;
   }
 
-  @media (min-width: 900px) {
-    .hero { height: 100svh; min-height: 40rem; }
-    .hero__grid {
-      height: 100%;
-      grid-template-columns: repeat(12, minmax(0, 1fr));
-      column-gap: var(--col-gap);
-      padding-top: 1rem;
-      padding-bottom: 2.25rem;
-    }
-    .hero__media {
-      grid-column: 7 / -1;
-      grid-row: 1;
-      display: flex;
-      flex-direction: column;
-      min-height: 0;
-    }
-    .hero__frame {
-      flex: 1;
-      aspect-ratio: auto;
-      max-height: none;
-      min-height: 0;
-    }
-    .hero__text {
-      grid-column: 1 / span 6;
-      grid-row: 1;
-      align-self: end;
-      padding-bottom: 2rem;
-    }
-    .hero__cue { margin-top: 3rem; }
-  }
-
   /* ---------- Intro ---------- */
-  .intro .grid { row-gap: 2rem; }
-  .intro__label { grid-column: 1 / -1; }
-  .intro__statement { grid-column: 1 / -1; max-width: 22ch; }
-  .intro__body { grid-column: 1 / -1; color: var(--ink-soft); }
+  .intro__grid { row-gap: 3rem; align-items: center; }
+  .intro__text, .intro__image { grid-column: 1 / -1; }
+  .intro__statement { margin-top: 1.5rem; max-width: 22ch; }
+  .intro__body { margin-top: 2rem; color: var(--ink-soft); }
+  .intro__image { max-width: 34rem; }
   @media (min-width: 900px) {
-    .intro__label { grid-column: 1 / span 3; padding-top: 0.9rem; }
-    .intro__statement { grid-column: 4 / -1; }
-    .intro__body { grid-column: 7 / span 5; margin-top: 2rem; }
+    .intro__text { grid-column: 1 / span 6; }
+    .intro__image { grid-column: 8 / span 5; max-width: none; }
   }
 
-  /* ---------- Featured archive ---------- */
-  .featured__grid {
+  /* ---------- Featured line-up ---------- */
+  .lineup {
     margin-top: clamp(3rem, 6vw, 5rem);
-    row-gap: clamp(3.5rem, 7vw, 7rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 3rem var(--col-gap);
+    align-items: start;
   }
-  .featured__grid :global(.fa) { grid-column: 1 / -1; }
-  .featured__grid :global(.fa--2),
-  .featured__grid :global(.fa--3) { width: 80%; }
-  .featured__grid :global(.fa--2) { justify-self: end; }
+  .lineup > :global(.lineup__item:nth-child(even)) { margin-top: 3rem; }
   @media (min-width: 900px) {
-    .featured__grid :global(.fa--2),
-    .featured__grid :global(.fa--3) { width: auto; }
-    .featured__grid :global(.fa--1) { grid-column: 1 / span 7; }
-    .featured__grid :global(.fa--2) { grid-column: 9 / span 4; margin-top: clamp(8rem, 16vw, 16rem); }
-    .featured__grid :global(.fa--3) { grid-column: 2 / span 4; }
-    .featured__grid :global(.fa--4) { grid-column: 8 / span 5; margin-top: clamp(-10rem, -8vw, -4rem); }
+    .lineup { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .lineup > :global(.lineup__item:nth-child(even)) { margin-top: 5rem; }
   }
   .section-end { margin-top: clamp(3rem, 6vw, 5rem); }
 
-  /* ---------- Quote ---------- */
-  .quote { padding-bottom: clamp(5rem, 11vw, 10rem); }
-  .quote :global(.quote__image .frame) { max-height: 92svh; }
+  /* ---------- Courtyard diptych + quote ---------- */
+  .quote { padding-block: clamp(4rem, 9vw, 8rem); }
+  .diptych { display: grid; gap: var(--col-gap); }
+  @media (min-width: 700px) {
+    .diptych { grid-template-columns: 1fr 1fr; align-items: start; }
+    .diptych :global(.diptych__second) { margin-top: clamp(3rem, 8vw, 8rem); }
+  }
   .quote__text { margin-top: clamp(3rem, 7vw, 6rem); row-gap: 1.5rem; }
-  .quote__label { grid-column: 1 / -1; color: var(--dark-muted); }
+  .quote__label { grid-column: 1 / -1; }
   .quote__body {
     grid-column: 1 / -1;
     font-size: clamp(2.75rem, 7.6vw, 8rem);
@@ -349,7 +292,7 @@ const featuredLayout = [
   /* ---------- Journal ---------- */
   .journal-teaser__list { margin-top: clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--line); }
 
-  /* ---------- Available ---------- */
+  /* ---------- Private collection ---------- */
   .avail { background: var(--surface); }
   .avail__grid { row-gap: 3rem; align-items: end; }
   .avail__text { grid-column: 1 / -1; display: grid; gap: 1.5rem; align-content: start; }
@@ -357,20 +300,19 @@ const featuredLayout = [
   .avail__items {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--col-gap);
     align-items: start;
   }
-  .avail__item--1 { grid-column: 1 / -1; width: 72%; }
-  .avail__item--3 { margin-top: 3rem; }
+  .avail__item--2 { margin-top: 2.5rem; }
+  .avail__item--3 { margin-top: 5rem; }
   .avail__link { text-decoration: none; display: block; }
   .avail__cap { display: grid; gap: 0.3rem; margin-top: 0.8rem; }
-  .avail__name { font-size: 1.25rem; line-height: 1.15; }
+  .avail__name { font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.15; }
   .avail__link:hover .avail__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
   @media (min-width: 900px) {
     .avail__text { grid-column: 1 / span 4; align-self: start; }
-    .avail__items { grid-column: 6 / -1; grid-template-columns: repeat(3, 1fr); }
-    .avail__item--1 { grid-column: auto; width: auto; }
+    .avail__items { grid-column: 6 / -1; }
     .avail__item--2 { margin-top: 5rem; }
     .avail__item--3 { margin-top: 10rem; }
   }
