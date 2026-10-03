@@ -20,3 +20,6 @@ pnpm-debug.log*
 # local previews created by the Claude app
 Claude outputs/
 .preview-tmp/
+
+# local preview (open preview/index.html)
+preview/
