@@ -23,3 +23,9 @@ Claude outputs/
 
 # local preview (open preview/index.html)
 preview/
+
+# original, full-resolution photographs — reference only, not used by the site
+photos/originals/
+
+# Claude Code local config
+.claude/

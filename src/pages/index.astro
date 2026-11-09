@@ -2,12 +2,11 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import KaftanCard from '../components/KaftanCard.astro';
-import EditorialCard from '../components/EditorialCard.astro';
 import ImageReveal from '../components/ImageReveal.astro';
 import { Picture } from 'astro:assets';
-import { getKaftans, getArticles } from '../lib/content';
+import { getKaftans } from '../lib/content';
 import { siteConfig } from '../config';
-import { url, pad } from '../lib/url';
+import { url } from '../lib/url';
 import { t } from '../i18n/en';
 
 // Homepage images — replace these files to change them.
@@ -27,8 +26,6 @@ const courtyard3Alt =
 
 const kaftans = await getKaftans();
 const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
-const more = kaftans.filter((k) => k.data.available && !k.data.featured).slice(0, 3);
-const articles = (await getArticles()).slice(0, 3);
 ---
 
 <BaseLayout>
@@ -112,64 +109,6 @@ const articles = (await getArticles()).slice(0, 3);
       </div>
     </div>
   </section>
-
-  <!-- Journal -->
-  <section class="section journal-teaser" aria-labelledby="journal-title">
-    <div class="wrap">
-      <SectionHeading
-        eyebrow={t.home.journalEyebrow}
-        title={t.home.journalTitle}
-        id="journal-title"
-        link={{ href: url('/journal/'), label: t.home.journalLink }}
-      />
-      <div class="journal-teaser__list">
-        {articles.map((entry, i) => <EditorialCard entry={entry} index={i + 1} />)}
-      </div>
-      <p class="section-end reveal">
-        <a class="arrow-link" href={url('/journal/')}>
-          <span>{t.home.journalLink}</span><span class="arrow" aria-hidden="true">→</span>
-        </a>
-      </p>
-    </div>
-  </section>
-
-  <!-- Private collection -->
-  {
-    more.length > 0 && (
-      <section class="section avail" aria-labelledby="avail-title">
-        <div class="wrap grid avail__grid">
-          <div class="avail__text">
-            <p class="label reveal">{t.home.availableEyebrow}</p>
-            <h2 id="avail-title" class="h3 avail__title reveal">{t.home.availableTitle}</h2>
-            <p class="reveal">
-              <a class="arrow-link" href={url('/available/')}>
-                <span>{t.home.availableLink}</span><span class="arrow" aria-hidden="true">→</span>
-              </a>
-            </p>
-          </div>
-          <ul class="avail__items" role="list">
-            {more.map((entry, i) => (
-              <li class={`avail__item avail__item--${i + 1}`}>
-                <a href={url(`/archive/${entry.id}/`)} class="avail__link">
-                  <ImageReveal
-                    src={entry.data.cover}
-                    alt={entry.data.coverAlt}
-                    position={entry.data.coverPosition}
-                    sizes="(min-width: 900px) 18vw, 45vw"
-                    delay={i * 0.12}
-                  />
-                  <p class="avail__cap">
-                    <span class="label muted">{t.archive.no} {pad(entry.data.order)}</span>
-                    <span class="avail__name">{entry.data.title}</span>
-                  </p>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-    )
-  }
 
   <!-- About -->
   <section class="section about-teaser" aria-labelledby="about-title">
@@ -287,34 +226,6 @@ const articles = (await getArticles()).slice(0, 3);
   @media (min-width: 900px) {
     .quote__label { grid-column: 1 / span 3; padding-top: 1.5rem; }
     .quote__body { grid-column: 4 / -1; }
-  }
-
-  /* ---------- Journal ---------- */
-  .journal-teaser__list { margin-top: clamp(2.5rem, 5vw, 4rem); border-bottom: 1px solid var(--line); }
-
-  /* ---------- Private collection ---------- */
-  .avail { background: var(--surface); }
-  .avail__grid { row-gap: 3rem; align-items: end; }
-  .avail__text { grid-column: 1 / -1; display: grid; gap: 1.5rem; align-content: start; }
-  .avail__title { max-width: 18ch; }
-  .avail__items {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--col-gap);
-    align-items: start;
-  }
-  .avail__item--2 { margin-top: 2.5rem; }
-  .avail__item--3 { margin-top: 5rem; }
-  .avail__link { text-decoration: none; display: block; }
-  .avail__cap { display: grid; gap: 0.3rem; margin-top: 0.8rem; }
-  .avail__name { font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.15; }
-  .avail__link:hover .avail__name { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
-  @media (min-width: 900px) {
-    .avail__text { grid-column: 1 / span 4; align-self: start; }
-    .avail__items { grid-column: 6 / -1; }
-    .avail__item--2 { margin-top: 5rem; }
-    .avail__item--3 { margin-top: 10rem; }
   }
 
   /* ---------- About ---------- */

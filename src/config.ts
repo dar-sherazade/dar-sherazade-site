@@ -12,13 +12,13 @@
 export const siteConfig = {
   name: 'Dar Sherazade',
   /** Short line used under the name and in the footer. */
-  tagline: 'Algerian dress, archives and contemporary creation.',
+  tagline: 'Every Kaftan carries the name of an Algerian flower.',
   /** Default description for search engines and link previews. */
   description:
     'Dar Sherazade is an independent cultural project documenting Algerian kaftans and related dress traditions through craft, archives, images and contemporary creation.',
   instagramHandle: '@sheracreates',
   instagramUrl: 'https://www.instagram.com/sheracreates/',
-  email: 'YOUR_EMAIL_ADDRESS',
+  email: 'sherazadedar@gmail.com',
   siteUrl: 'https://dar-sherazade.github.io',
   /** Language of the site (used for <html lang> and Open Graph). */
   locale: 'en',
@@ -32,17 +32,13 @@ export const emailIsPlaceholder = siteConfig.email === 'YOUR_EMAIL_ADDRESS';
 
 /** Main navigation, in display order. */
 export const mainNav = [
-  { label: 'Archive', href: '/archive/' },
-  { label: 'Journal', href: '/journal/' },
-  { label: 'Available', href: '/available/' },
+  { label: 'The Kaftans', href: '/archive/' },
   { label: 'About', href: '/about/' },
 ] as const;
 
 /** Footer navigation, in display order (Instagram is added automatically). */
 export const footerNav = [
-  { label: 'Archive', href: '/archive/' },
-  { label: 'Journal', href: '/journal/' },
-  { label: 'Available', href: '/available/' },
+  { label: 'The Kaftans', href: '/archive/' },
   { label: 'About', href: '/about/' },
   { label: 'Contact', href: '/contact/' },
 ] as const;

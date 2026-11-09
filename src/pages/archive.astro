@@ -22,7 +22,6 @@ const filters = [
   { key: 'region', label: t.archive.filters.region, options: collect(kaftans.map((k) => k.data.region)) },
   { key: 'period', label: t.archive.filters.period, options: collect(kaftans.map((k) => k.data.period)) },
   { key: 'material', label: t.archive.filters.material, options: collect(kaftans.flatMap((k) => k.data.materials)) },
-  { key: 'technique', label: t.archive.filters.technique, options: collect(kaftans.flatMap((k) => k.data.techniques)) },
   {
     key: 'availability',
     label: t.archive.filters.availability,
@@ -45,7 +44,6 @@ const countText = (n: number) => `${n} ${n === 1 ? t.archive.countOne : t.archiv
   <header class="page-head wrap">
     <p class="label reveal">Catalogue · {countText(kaftans.length)}</p>
     <h1 class="h1 page-head__title reveal">{t.archive.title}</h1>
-    <p class="lede page-head__intro reveal" style="--delay: .1s">{t.archive.intro}</p>
   </header>
 
   {

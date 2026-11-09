@@ -34,6 +34,10 @@ const kaftans = defineCollection({
       collectionNote: z.string().optional(),
       /** true → shows the private enquiry section and the /available page. */
       available: z.boolean().default(false),
+      /** Price shown on the piece page, e.g. "€450". Leave unset while pricing is pending. */
+      price: z.string().optional(),
+      /** Size range shown on the piece page. */
+      size: z.string().default('36 – 44'),
       /** true → shown on the homepage. */
       featured: z.boolean().default(false),
       /** true → displays a small "sample entry" notice. Remove once documented. */

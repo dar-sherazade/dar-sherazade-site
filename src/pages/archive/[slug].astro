@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro';
-import { render, type CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ImageReveal from '../../components/ImageReveal.astro';
 import EnquiryCTA from '../../components/EnquiryCTA.astro';
@@ -26,20 +26,17 @@ interface Props {
 
 const { entry, prev, next } = Astro.props;
 const d = entry.data;
-const { Content } = await render(entry);
-const hasNote = (entry.body ?? '').trim().length > 0;
 const tbd = (v: string) => /^to be documented/i.test(v);
 
 const details: { term: string; value: string }[] = [
-  { term: t.piece.archiveNumber, value: d.archiveNumber },
-  { term: t.piece.region, value: d.region },
-  { term: t.piece.period, value: d.period },
   { term: t.piece.materials, value: d.materials.join(', ') || 'To be documented' },
-  { term: t.piece.techniques, value: d.techniques.join(', ') || 'To be documented' },
-  { term: t.piece.condition, value: d.condition },
-  { term: t.piece.collection, value: d.collectionNote ? `${d.collection} — ${d.collectionNote}` : d.collection },
+  { term: t.piece.size, value: d.size },
   { term: t.piece.status, value: d.available ? t.piece.statusAvailable : t.piece.statusArchive },
 ];
+
+if (d.price) {
+  details.splice(details.length - 1, 0, { term: t.piece.price, value: d.price });
+}
 
 const galleryLayout = ['g g--left', 'g g--right', 'g g--wide'];
 
@@ -115,17 +112,6 @@ const jsonLd = {
     </div>
 
     {
-      hasNote && (
-        <section class="section wrap grid piece__note" aria-labelledby="note-title">
-          <h2 id="note-title" class="label piece__note-label">{t.piece.note}</h2>
-          <div class="prose piece__note-body reveal">
-            <Content />
-          </div>
-        </section>
-      )
-    }
-
-    {
       d.terms.length > 0 && (
         <section class="wrap grid piece__terms" aria-labelledby="terms-title">
           <h2 id="terms-title" class="label piece__note-label">{t.piece.terms}</h2>
@@ -156,8 +142,6 @@ const jsonLd = {
                   alt={img.alt}
                   position={img.position}
                   sizes={i % 3 === 2 ? '(min-width: 900px) 80vw, 100vw' : '(min-width: 900px) 34vw, 85vw'}
-                  caption={`${t.piece.fig} ${i + 2} — ${img.caption ?? img.view ?? d.title}`}
-                  captionSide={i % 3 !== 2}
                   class={galleryLayout[i % 3]}
                 />
               ))}
@@ -227,17 +211,14 @@ const jsonLd = {
     }
   }
 
-  /* Note */
-  .piece__note { row-gap: 1.5rem; padding-bottom: 0; }
-  .piece__note-label { grid-column: 1 / -1; }
-  .piece__note-body { grid-column: 1 / -1; }
   .piece__terms { padding-top: var(--section-sm); row-gap: 1.5rem; }
+  .piece__note-label { grid-column: 1 / -1; }
   .piece__terms-list { grid-column: 1 / -1; display: grid; gap: 0; max-width: 40rem; }
   .piece__term { padding-block: 0.9rem; border-top: 1px solid var(--line); }
   .piece__term dt { font-size: 1.25rem; }
   @media (min-width: 900px) {
     .piece__note-label { grid-column: 1 / span 3; padding-top: 0.5rem; }
-    .piece__note-body, .piece__terms-list { grid-column: 4 / span 7; }
+    .piece__terms-list { grid-column: 4 / span 7; }
   }
 
   /* Gallery */

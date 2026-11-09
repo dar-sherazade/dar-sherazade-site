@@ -1,20 +1,20 @@
 ---
-title: "About"
-description: "Dar Sherazade is an independent project documenting and reinterpreting Algerian dress traditions, with a particular focus on the kaftan."
+title: "Our Story"
+description: "How Dar Sherazade began: a wedding, a search for the perfect caftan, and a collection made in Algeria with the family of seamstresses who have dressed three generations."
 ---
 
-Dar Sherazade is an independent project dedicated to documenting and reinterpreting Algerian dress traditions, with a particular focus on the kaftan.
+It all began with my wedding.
 
-The project brings together research, image-making, collecting, documentation and contemporary creation. It began on Instagram and continues there, alongside this site, which serves as its archive and journal.
+I wanted to do things the old way. I chose my own fabrics, found my own seamstress and designed my caftans exactly as I imagined them. Because I wear the hijab, I wanted a slightly higher neckline and a cut that suited me, so I adapted the shape of the caftan to my own needs. I've always loved flowers, so I chose floral fabrics.
 
-<p class="placeholder">[Placeholder — a personal note from the founder: how the project began, what draws you to these garments, and what you hope it will become. To be written.]</p>
+At the wedding, the compliments kept coming. Guest after guest asked me the same question: why don't you start your own caftan house? And I thought… why not?
 
-## How the archive works
+That was the start of a year and a half of work. I travelled to Kuwait and chose every fabric myself, by hand: beaded, embroidered, satin and brocade, each one picked for the way it catches the light and the way it falls. Then I took them to Algeria, to the family of seamstresses who have dressed the women in my family for two generations. My seamstress made my wedding caftans. Her mother made my mother's wedding outfits. Every piece in this collection was made by those same trusted hands.
 
-Each garment in the archive is photographed, described and researched over time. Entries are published as they are, and completed as more is learned. Where something is not yet known, it is marked as such.
+I have Algerian roots, but I didn't grow up in Algeria. Over the years, I've come to love the country deeply: its history, its culture and its people. This project has been my way of reconnecting with my heritage and of understanding where I come from.
 
-## A note on history
+That's why each caftan is named after a flower that grows in Algeria. I chose each name to echo its caftan, both in its colour and in the sound of the word.
 
-The kaftan belongs to a long history shared across many regions and periods. Dar Sherazade looks closely at its Algerian forms, and aims to present that history with care: citing sources, distinguishing what is documented from what is remembered, and leaving room for what is still unknown.
+The photoshoot carries the same spirit. It took place in Blida, in a traditional Moorish house that was generously lent to me for the occasion. No studio, no set, just a real, authentic Algerian home. I wanted this collection to be made in Algeria, by Algerians, at every step, all the way to the images you see here. The shoot itself was a family affair, made with the help of my relatives and cousins. It reflects something I treasure about Algeria: when something matters, everyone comes together.
 
-<p class="placeholder">[Placeholder — acknowledgements: makers, families, archives and collaborators. To be written.]</p>
+Today, these caftans, made in Algeria, are worn by women in Paris, London and across Europe. Each one carries a little of that story with it.

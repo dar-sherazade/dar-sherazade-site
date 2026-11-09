@@ -1,37 +1,40 @@
 ---
-# ─── Collection entry ───────────────────────────────────────
-# Materials are described from the photographs; confirm them
-# (and fill in region, period and condition) once known.
-title: "Coral Lace Kaftan"
-archiveNumber: "DS-008"
-order: 8
+title: "Defla · دفلة"
+archiveNumber: "DS-006"
+order: 4
 region: "To be documented"
 period: "To be documented"
 materials:
-  - Lace
+  - Embroidered tulle
   - Satin
 techniques:
-  - Embroidered lace
-  - Braided trim
+  - Floral embroidery
 condition: "To be documented"
 collection: "Dar Sherazade collection"
-collectionNote: "Materials described from photographs, to be confirmed"
-available: true
-featured: false
+collectionNote: "Named for the oleander flower, defla (دفلة). Materials described from photographs, to be confirmed."
+available: false
+price: "£160"
+featured: true
 sample: false
 cover: ./cover.jpg
-coverAlt: "A woman holding a lace fan in front of her face, wearing a coral lace kaftan with ivory braided trim and a wide pink satin belt."
-coverPosition: "50% 40%"
+coverAlt: "A woman in a coral lace kaftan with a satin belt, holding an antique brass ewer up to her face, in a riad courtyard."
+coverPosition: "50% 35%"
 gallery:
-  - src: ./detail-bodice.jpg
-    alt: "Closer view of the bodice, buttons and belt of the Coral Lace Kaftan."
-    view: "Bodice and belt"
-    caption: "Bodice and belt"
-  - src: ./detail-hem.jpg
-    alt: "Closer view of the skirt and hem of the Coral Lace Kaftan."
-    view: "Skirt and hem"
-    caption: "Skirt and hem"
-description: "A coral kaftan in embroidered lace over a matching lining, with ivory braided trim along the front opening and a wide pink satin belt."
+  - src: ./detail-01.jpg
+    alt: "Close view of the coral floral embroidery at the shoulder, with a gold filigree drop earring."
+    view: "Shoulder embroidery"
+    caption: "Shoulder embroidery"
+  - src: ./detail-02.jpg
+    alt: "Back view of the coral kaftan, showing the embroidered panel and satin belt tied in a bow."
+    view: "Back view"
+    caption: "Back view"
+  - src: ./detail-03.jpg
+    alt: "The coral kaftan worn with a lace fan raised, in front of a shelf of Algerian ceramics and books."
+    view: "Full garment"
+  - src: ./detail-04.jpg
+    alt: "Close view of the braided trim and rosette buttons along the front opening."
+    view: "Front trim detail"
+description: "A coral kaftan in fine floral-embroidered tulle over satin, finished with braided trim, rosette buttons and a coral satin belt tied in a bow."
 ---
 
 *Notes in progress.*

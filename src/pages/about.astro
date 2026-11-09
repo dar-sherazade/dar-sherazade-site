@@ -7,7 +7,8 @@ import { url } from '../lib/url';
 import { t } from '../i18n/en';
 
 // The text of this page lives in src/content/pages/about.md
-import aboutImage from '../assets/home/courtyard-03.jpg';
+import storyFriends1 from '../assets/about/story-friends-01.jpg';
+import storyFriends2 from '../assets/about/story-friends-02.jpg';
 
 const page = await getEntry('pages', 'about');
 if (!page) throw new Error('Missing src/content/pages/about.md');
@@ -23,8 +24,8 @@ const { Content } = await render(page);
   <div class="wrap grid about">
     <div class="about__image">
       <ImageReveal
-        src={aboutImage}
-        alt="Two women standing back to back in front of a carved cedar door, both in lilac sequinned kaftans."
+        src={storyFriends1}
+        alt="Four women gathered together in a tiled interior with a brass clock and candelabra, wearing ivory, powder-blue, mauve and coral kaftans."
         sizes="(min-width: 900px) 33vw, 100vw"
         eager
       />
@@ -34,10 +35,19 @@ const { Content } = await render(page);
     </div>
   </div>
 
+  <section class="section wrap about-photos" aria-label="The collection, worn together">
+    <ImageReveal
+      src={storyFriends2}
+      alt="Two women seen from behind, one in a mauve sequinned kaftan and one in a royal blue beaded kaftan, standing beside a carved pillar and a potted palm."
+      sizes="(min-width: 900px) 60vw, 100vw"
+      class="about-photos__single"
+    />
+  </section>
+
   <section class="section wrap grid about__ig" aria-labelledby="ig-title">
     <h2 id="ig-title" class="label about__ig-label">{t.instagram}</h2>
     <div class="about__ig-body">
-      <p class="lede">The project lives day to day on Instagram — new pieces, details and research notes.</p>
+      <p class="lede">More than a project, a story. Follow it on Instagram, along with new pieces, behind-the-scenes and the designer behind it all.</p>
       <a class="about__ig-link" href={siteConfig.instagramUrl} rel="me noopener" target="_blank">
         <span>{siteConfig.instagramHandle}</span>
         <span class="about__ig-arrow" aria-hidden="true">↗</span>
@@ -64,6 +74,9 @@ const { Content } = await render(page);
     .about__image { grid-column: 1 / span 4; max-width: none; align-self: start; position: sticky; top: calc(var(--header-h) + 1.5rem); }
     .about__text { grid-column: 6 / span 6; }
   }
+
+  .about-photos { padding-top: clamp(3rem, 7vw, 6rem); }
+  .about-photos :global(.about-photos__single) { max-width: 48rem; margin-inline: auto; }
 
   .about__ig { row-gap: 1.5rem; }
   .about__ig-label { grid-column: 1 / -1; border-top: 1px solid var(--line-strong); padding-top: 1rem; }

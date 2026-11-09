@@ -31,7 +31,6 @@ const {
 const d = entry.data;
 const Heading = headingTag;
 const ratio = { natural: undefined, portrait: '4 / 5', tall: '2 / 3', landscape: '5 / 4' }[shape];
-const tbd = (v: string) => /^to be documented/i.test(v);
 ---
 
 <article
@@ -40,7 +39,6 @@ const tbd = (v: string) => /^to be documented/i.test(v);
   data-region={toKey(d.region)}
   data-period={toKey(d.period)}
   data-material={d.materials.map(toKey).join(' ')}
-  data-technique={d.techniques.map(toKey).join(' ')}
   data-availability={d.available ? 'available' : 'archive'}
 >
   <a class="kcard__link" href={url(`/archive/${entry.id}/`)}>
@@ -58,12 +56,13 @@ const tbd = (v: string) => /^to be documented/i.test(v);
       <p class="kcard__no label"><span class="muted">{t.archive.no}</span> <span class="num">{pad(d.order)}</span></p>
       <div class="kcard__body">
         <Heading class="kcard__title">{d.title}</Heading>
-        <p class="meta">
-          {tbd(d.region) ? <span class="italic">Region to be documented</span> : d.region}
-          {!tbd(d.period) && <span> · {d.period}</span>}
-        </p>
         {d.materials.length > 0 && <p class="meta">{d.materials.join(' · ')}</p>}
-        {d.available && <p class="kcard__avail label">{t.archive.availableTag}</p>}
+        {(d.available || d.price) && (
+          <p class:list={['kcard__avail label', !d.available && 'kcard__avail--sold']}>
+            {d.available ? t.archive.availableTag : t.archive.soldTag}
+            {d.price && <span class="kcard__price"> · {d.price}</span>}
+          </p>
+        )}
       </div>
     </div>
   </a>
@@ -104,6 +103,7 @@ const tbd = (v: string) => /^to be documented/i.test(v);
     font-size: 0.6875rem;
     color: var(--accent);
   }
+  .kcard__avail--sold { color: var(--muted); }
 
   @media (hover: hover) {
     .kcard__link:hover :global(.kcard__media img) { transform: scale(1.035); }
