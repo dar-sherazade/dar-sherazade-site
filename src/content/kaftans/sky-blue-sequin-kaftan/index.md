@@ -1,5 +1,5 @@
 ---
-title: "Nouar II · نوّار"
+title: "Zahret el Kettan · زهرة الكتان"
 archiveNumber: "DS-012"
 order: 14
 region: "To be documented"
@@ -11,7 +11,7 @@ techniques:
   - Floral sequin embroidery
 condition: "To be documented"
 collection: "Dar Sherazade collection"
-collectionNote: "Named for nouar (نوّار), blossom. Materials described from photographs, to be confirmed."
+collectionNote: "Named for the flax flower, zahret el kettan (زهرة الكتان). Materials described from photographs, to be confirmed."
 available: true
 price: "£95"
 featured: false

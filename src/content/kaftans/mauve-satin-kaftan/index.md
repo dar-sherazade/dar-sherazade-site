@@ -1,5 +1,5 @@
 ---
-title: "Khzama III · خزامى"
+title: "Ward Jouri · ورد جوري"
 archiveNumber: "DS-010"
 order: 15
 region: "To be documented"
@@ -11,7 +11,7 @@ techniques:
   - Beaded embroidery
 condition: "To be documented"
 collection: "Dar Sherazade collection"
-collectionNote: "Named for the lavender flower, khzama (خزامى). Materials described from photographs, to be confirmed."
+collectionNote: "Named for the damask rose, ward jouri (ورد جوري). Materials described from photographs, to be confirmed."
 available: true
 price: "£95"
 featured: false

@@ -1,5 +1,5 @@
 ---
-title: "Zhar I · زهر"
+title: "Zhar · زهر"
 archiveNumber: "DS-003"
 order: 2
 region: "To be documented"

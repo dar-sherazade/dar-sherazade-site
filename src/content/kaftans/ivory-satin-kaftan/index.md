@@ -1,5 +1,5 @@
 ---
-title: "Yasmine II · ياسمين"
+title: "Fell · فل"
 archiveNumber: "DS-002"
 order: 10
 region: "To be documented"
@@ -11,7 +11,7 @@ techniques:
   - Floral embroidery
 condition: "To be documented"
 collection: "Dar Sherazade collection"
-collectionNote: "Named for the jasmine flower, yasmine (ياسمين). Materials described from photographs, to be confirmed."
+collectionNote: "Named for the Arabian jasmine flower, fell (فل). Materials described from photographs, to be confirmed."
 available: true
 price: "£95"
 featured: true

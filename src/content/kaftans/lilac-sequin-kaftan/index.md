@@ -1,5 +1,5 @@
 ---
-title: "Khzama I · خزامى"
+title: "Zanzalakht · زنزلخت"
 archiveNumber: "DS-008"
 order: 5
 region: "To be documented"
@@ -11,7 +11,7 @@ techniques:
   - Beaded embroidery
 condition: "To be documented"
 collection: "Dar Sherazade collection"
-collectionNote: "Named for the lavender flower, khzama (خزامى). Materials described from photographs, to be confirmed."
+collectionNote: "Named for the Persian lilac tree's blossom, zanzalakht (زنزلخت). Materials described from photographs, to be confirmed."
 available: true
 price: "£160"
 featured: false

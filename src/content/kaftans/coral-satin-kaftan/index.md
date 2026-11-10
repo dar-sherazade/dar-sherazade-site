@@ -1,5 +1,5 @@
 ---
-title: "Defla Simple · دفلة"
+title: "Khoukh · خوخ"
 archiveNumber: "DS-007"
 order: 12
 region: "To be documented"
@@ -11,7 +11,7 @@ techniques:
   - Floral embroidery
 condition: "To be documented"
 collection: "Dar Sherazade collection"
-collectionNote: "Named for the oleander flower, defla (دفلة). Materials described from photographs, to be confirmed."
+collectionNote: "Named for the peach blossom, khoukh (خوخ). Materials described from photographs, to be confirmed."
 available: true
 price: "£95"
 featured: false

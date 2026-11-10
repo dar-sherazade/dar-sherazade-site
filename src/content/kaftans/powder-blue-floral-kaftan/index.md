@@ -1,5 +1,5 @@
 ---
-title: "Nouar I · نوّار"
+title: "Nouar · نوّار"
 archiveNumber: "DS-011"
 order: 6
 region: "To be documented"

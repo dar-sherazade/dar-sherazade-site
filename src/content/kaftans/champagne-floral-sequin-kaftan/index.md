@@ -1,5 +1,5 @@
 ---
-title: "Zhar II · زهر"
+title: "Narjis · نرجس"
 archiveNumber: "DS-004"
 order: 11
 region: "To be documented"
@@ -11,7 +11,7 @@ techniques:
   - Beaded floral embroidery
 condition: "To be documented"
 collection: "Dar Sherazade collection"
-collectionNote: "Named for zhar (زهر), orange blossom. Materials described from photographs, to be confirmed."
+collectionNote: "Named for the narcissus flower, narjis (نرجس). Materials described from photographs, to be confirmed."
 available: false
 price: "£200"
 featured: false

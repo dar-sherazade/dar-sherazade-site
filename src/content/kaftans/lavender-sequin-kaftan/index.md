@@ -1,5 +1,5 @@
 ---
-title: "Khzama II · خزامى"
+title: "Khzama · خزامى"
 archiveNumber: "DS-009"
 order: 13
 region: "To be documented"
