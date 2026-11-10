@@ -227,8 +227,8 @@ A paragraph of text.
 ## Changing images
 
 - **Archive and journal images** are in their own content folders (see above). To replace one, either keep the same file name, or put in a new file and update its name in `index.md`.
-- **Brand banner (top of the homepage):** the tile photo is `src/assets/brand/dar-sherazade-tiles-clean.jpg`; the "Dar Sherazade" text over it is live text, set in `src/pages/index.astro` (`.hero__wordmark`), not baked into the image.
-- **Logo in the header:** also live text, in `src/components/Wordmark.astro` — not an image file.
+- **Brand banner (top of the homepage):** `src/assets/brand/dar-sherazade-canva-banner.jpg`
+- **Logo in the header:** `src/assets/brand/dar-sherazade-canva-logo.png` (transparent background)
 - **Courtyard photographs** (homepage and About page): `src/assets/home/courtyard-01.jpg` to `courtyard-03.jpg`
 - **Link-preview image** (when the site is shared on social media): `public/social/og-default.jpg`, 1200 × 630 px
 - **Favicon:** `public/favicon.ico` and `public/favicon/`

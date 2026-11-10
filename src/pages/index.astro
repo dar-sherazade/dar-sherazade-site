@@ -10,13 +10,13 @@ import { url } from '../lib/url';
 import { t } from '../i18n/en';
 
 // Homepage images — replace these files to change them.
-import banner from '../assets/brand/dar-sherazade-tiles-clean.jpg';
+import banner from '../assets/brand/dar-sherazade-canva-banner.jpg';
 import courtyard1 from '../assets/home/courtyard-01.jpg';
 import courtyard2 from '../assets/home/courtyard-02.jpg';
 import courtyard3 from '../assets/home/courtyard-03.jpg';
 
 const bannerAlt =
-  'Green, saffron and lavender zellige tiles beside a carved marble column.';
+  'Dar Sherazade, with the name also written in Arabic, in white letters over green, saffron and lavender zellige tiles beside a carved marble column.';
 const courtyard1Alt =
   'In a courtyard of carved white plaster and zellige tiles, a woman in a fuchsia and ivory kaftan with a gold satin belt holds a bunch of herbs in front of her face.';
 const courtyard2Alt =
@@ -45,13 +45,6 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
         fetchpriority="high"
         style="object-position: 40% 66%;"
       />
-      <p class="hero__wordmark" aria-hidden="true">
-        <span class="hero__wordmark-line">
-          <span class="hero__wordmark-latin">Dar</span>
-          <span class="hero__wordmark-arabic" lang="ar" dir="rtl">شهرزاد</span>
-        </span>
-        <span class="hero__wordmark-line hero__wordmark-latin">Sherazade</span>
-      </p>
     </div>
     <div class="wrap hero__meta">
       <p class="hero__line">{t.home.heroLine}</p>
@@ -149,7 +142,6 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
     aspect-ratio: 1050 / 600;
     max-height: calc(100svh - var(--header-h) - 6rem);
     min-height: 15rem;
-    container-type: inline-size;
     animation: mask-down 1.6s var(--ease-out) 0.05s both;
   }
   .hero__banner :global(picture) { display: contents; }
@@ -158,34 +150,6 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
     height: 100%;
     object-fit: cover;
     animation: settle 2.4s var(--ease-out) 0.05s both;
-  }
-
-  /* Live text set over the tile photo, instead of baking it into the image. */
-  .hero__wordmark {
-    position: absolute;
-    left: 5%;
-    bottom: 10%;
-    display: flex;
-    flex-direction: column;
-    color: #fff;
-    font-family: var(--serif);
-    font-weight: 800;
-    line-height: 0.92;
-    letter-spacing: -0.01em;
-    text-shadow: 0 0.6cqw 2.4cqw rgba(0, 0, 0, 0.22);
-    animation: fade-in 1.4s var(--ease) 0.4s both;
-  }
-  .hero__wordmark-line {
-    display: flex;
-    align-items: baseline;
-    gap: 0.2em;
-    white-space: nowrap;
-    font-size: 14.5cqw;
-  }
-  .hero__wordmark-arabic {
-    font-family: 'Scheherazade New', var(--serif);
-    font-weight: 700;
-    font-size: 1.08em;
   }
   .hero__meta {
     display: flex;

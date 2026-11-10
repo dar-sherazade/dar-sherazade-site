@@ -5,7 +5,8 @@
  * On small screens the links move into a full-screen menu.
  */
 import Navigation from './Navigation.astro';
-import Wordmark from './Wordmark.astro';
+import { Image } from 'astro:assets';
+import wordmark from '../assets/brand/dar-sherazade-canva-logo.png';
 import { siteConfig } from '../config';
 import { url } from '../lib/url';
 import { t } from '../i18n/en';
@@ -19,7 +20,7 @@ const { mode = 'solid' } = Astro.props;
 <header class="site-header" data-mode={mode} data-header>
   <div class="wrap site-header__inner">
     <a class="wordmark" href={url('/')} aria-label={`${siteConfig.name} — home`}>
-      <Wordmark />
+      <Image src={wordmark} alt={siteConfig.name} widths={[280, 420, 560]} sizes="200px" />
     </a>
 
     <nav class="site-header__nav" aria-label={t.mainNavigation}>
@@ -85,7 +86,10 @@ const { mode = 'solid' } = Astro.props;
     display: block;
     padding-block: 0.4rem;
     flex: none;
-    font-size: 1.5rem;
+  }
+  .wordmark :global(img) {
+    height: 2.75rem;
+    width: auto;
   }
 
   .site-header__nav { display: none; }
