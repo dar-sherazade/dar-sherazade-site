@@ -10,13 +10,13 @@ import { url } from '../lib/url';
 import { t } from '../i18n/en';
 
 // Homepage images — replace these files to change them.
-import banner from '../assets/home/hero-flowers.jpg';
+import banner from '../assets/brand/dar-sherazade-canva-banner.jpg';
 import teacup from '../assets/home/teacup.jpg';
 import courtyard2 from '../assets/home/courtyard-02.jpg';
 import courtyard3 from '../assets/home/courtyard-03.jpg';
 
 const bannerAlt =
-  'Three women standing together between carved marble columns, each holding flowers in front of her face, wearing fuchsia ikat, black and silver brocade, and olive and gold kaftans.';
+  'Dar Sherazade, with the name also written in Arabic, in white letters over green, saffron and lavender zellige tiles beside a carved marble column.';
 const teacupAlt =
   'A woman in a beaded ivory and gold kaftan holds a small patterned teacup, against a backdrop of blue zellige tiles.';
 const courtyard2Alt =
@@ -43,7 +43,7 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
         quality={84}
         loading="eager"
         fetchpriority="high"
-        style="object-position: 50% 35%;"
+        style="object-position: 40% 66%;"
       />
     </div>
   </section>
@@ -131,13 +131,10 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
   /* ---------- Hero ---------- */
   .hero__banner {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1050 / 600;
     max-height: calc(100svh - var(--header-h) - 6rem);
     min-height: 15rem;
     animation: mask-down 1.6s var(--ease-out) 0.05s both;
-  }
-  @media (min-width: 700px) {
-    .hero__banner { aspect-ratio: 16 / 9; }
   }
   .hero__banner :global(picture) { display: contents; }
   .hero__banner :global(img) {
