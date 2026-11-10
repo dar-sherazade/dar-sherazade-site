@@ -10,13 +10,13 @@ import { url } from '../lib/url';
 import { t } from '../i18n/en';
 
 // Homepage images — replace these files to change them.
-import banner from '../assets/brand/dar-sherazade-canva-banner.jpg';
+import banner from '../assets/about/story-friends-01.jpg';
 import teacup from '../assets/home/teacup.jpg';
 import courtyard2 from '../assets/home/courtyard-02.jpg';
 import courtyard3 from '../assets/home/courtyard-03.jpg';
 
 const bannerAlt =
-  'Dar Sherazade, with the name also written in Arabic, in white letters over green, saffron and lavender zellige tiles beside a carved marble column.';
+  'Four women gathered together in a tiled interior with a brass clock and candelabra, wearing ivory, powder-blue, mauve and coral kaftans.';
 const teacupAlt =
   'A woman in a beaded ivory and gold kaftan holds a small patterned teacup, against a backdrop of blue zellige tiles.';
 const courtyard2Alt =
@@ -43,7 +43,7 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
         quality={84}
         loading="eager"
         fetchpriority="high"
-        style="object-position: 40% 66%;"
+        style="object-position: 50% 52%;"
       />
     </div>
   </section>
@@ -96,7 +96,6 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
         <ImageReveal src={courtyard3} alt={courtyard3Alt} sizes="(min-width: 700px) 46vw, 100vw" delay={0.12} class="diptych__second" />
       </div>
       <div class="grid quote__text">
-        <p class="label quote__label reveal">{t.home.quoteCaption}</p>
         <blockquote class="quote__body reveal">
           <p>{t.home.quote}</p>
         </blockquote>
@@ -132,10 +131,13 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
   /* ---------- Hero ---------- */
   .hero__banner {
     width: 100%;
-    aspect-ratio: 1050 / 600;
+    aspect-ratio: 3 / 4;
     max-height: calc(100svh - var(--header-h) - 6rem);
     min-height: 15rem;
     animation: mask-down 1.6s var(--ease-out) 0.05s both;
+  }
+  @media (min-width: 700px) {
+    .hero__banner { aspect-ratio: 4 / 5; }
   }
   .hero__banner :global(picture) { display: contents; }
   .hero__banner :global(img) {
@@ -179,7 +181,6 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
     .diptych :global(.diptych__second) { margin-top: clamp(3rem, 8vw, 8rem); }
   }
   .quote__text { margin-top: clamp(3rem, 7vw, 6rem); row-gap: 1.5rem; }
-  .quote__label { grid-column: 1 / -1; }
   .quote__body {
     grid-column: 1 / -1;
     font-size: clamp(2.75rem, 7.6vw, 8rem);
@@ -189,8 +190,7 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
     max-width: 14ch;
   }
   @media (min-width: 900px) {
-    .quote__label { grid-column: 1 / span 3; padding-top: 1.5rem; }
-    .quote__body { grid-column: 4 / -1; }
+    .quote__body { grid-column: 1 / -1; }
   }
 
   /* ---------- About ---------- */

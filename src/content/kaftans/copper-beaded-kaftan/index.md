@@ -1,5 +1,5 @@
 ---
-title: "Jelnar · نوار الرمان"
+title: "Jalnar · جلنار"
 archiveNumber: "DS-016"
 order: 12
 region: "To be documented"
@@ -11,7 +11,7 @@ techniques:
   - Beaded branch embroidery
 condition: "To be documented"
 collection: "Dar Sherazade collection"
-collectionNote: "Named for the pomegranate blossom, nouar el rmane (نوار الرمان), also known as Jelnar. Materials described from photographs, to be confirmed."
+collectionNote: "Named for the pomegranate blossom, Jalnar (جلنار). Materials described from photographs, to be confirmed."
 available: false
 price: "£120"
 featured: false

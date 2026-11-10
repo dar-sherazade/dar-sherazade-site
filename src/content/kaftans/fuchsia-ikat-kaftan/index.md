@@ -1,5 +1,5 @@
 ---
-title: "Bougainvillée · بوغانفيليا"
+title: "Bougainvillier · بوغانفيليا"
 archiveNumber: "DS-005"
 order: 5
 region: "To be documented"

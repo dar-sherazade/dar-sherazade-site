@@ -8,7 +8,6 @@ import { t } from '../i18n/en';
 
 // The text of this page lives in src/content/pages/about.md
 import storyWedding from '../assets/about/story-wedding.jpg';
-import storyFriends1 from '../assets/about/story-friends-01.jpg';
 
 const page = await getEntry('pages', 'about');
 if (!page) throw new Error('Missing src/content/pages/about.md');
@@ -34,15 +33,6 @@ const { Content } = await render(page);
       <Content />
     </div>
   </div>
-
-  <section class="section wrap about-photos" aria-label="The collection, worn together">
-    <ImageReveal
-      src={storyFriends1}
-      alt="Four women gathered together in a tiled interior with a brass clock and candelabra, wearing ivory, powder-blue, mauve and coral kaftans."
-      sizes="(min-width: 900px) 60vw, 100vw"
-      class="about-photos__single"
-    />
-  </section>
 
   <section class="section wrap grid about__ig" aria-labelledby="ig-title">
     <h2 id="ig-title" class="label about__ig-label">{t.instagram}</h2>
@@ -74,9 +64,6 @@ const { Content } = await render(page);
     .about__image { grid-column: 1 / span 4; max-width: none; align-self: start; position: sticky; top: calc(var(--header-h) + 1.5rem); }
     .about__text { grid-column: 6 / span 6; }
   }
-
-  .about-photos { padding-top: clamp(3rem, 7vw, 6rem); }
-  .about-photos :global(.about-photos__single) { max-width: 48rem; margin-inline: auto; }
 
   .about__ig { row-gap: 1.5rem; }
   .about__ig-label { grid-column: 1 / -1; border-top: 1px solid var(--line-strong); padding-top: 1rem; }

@@ -24,7 +24,6 @@ export const t = {
     archiveTitle: 'The collection',
     archiveLink: 'View the kaftans',
     quote: 'Each kaftan carries a little of that story with it.',
-    quoteCaption: 'In the courtyard',
     aboutEyebrow: 'Dar Sherazade',
     aboutText: "Kaftans made in Algeria, by the women who've always made them.",
     aboutLink: 'About the project',
