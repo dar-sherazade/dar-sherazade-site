@@ -10,13 +10,13 @@ import { url } from '../lib/url';
 import { t } from '../i18n/en';
 
 // Homepage images — replace these files to change them.
-import banner from '../assets/about/story-friends-01.jpg';
+import banner from '../assets/home/hero-flowers.jpg';
 import teacup from '../assets/home/teacup.jpg';
 import courtyard2 from '../assets/home/courtyard-02.jpg';
 import courtyard3 from '../assets/home/courtyard-03.jpg';
 
 const bannerAlt =
-  'Four women gathered together in a tiled interior with a brass clock and candelabra, wearing ivory, powder-blue, mauve and coral kaftans.';
+  'Three women standing together between carved marble columns, each holding flowers in front of her face, wearing fuchsia ikat, black and silver brocade, and olive and gold kaftans.';
 const teacupAlt =
   'A woman in a beaded ivory and gold kaftan holds a small patterned teacup, against a backdrop of blue zellige tiles.';
 const courtyard2Alt =
@@ -43,7 +43,7 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
         quality={84}
         loading="eager"
         fetchpriority="high"
-        style="object-position: 50% 52%;"
+        style="object-position: 50% 35%;"
       />
     </div>
   </section>
@@ -131,13 +131,13 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
   /* ---------- Hero ---------- */
   .hero__banner {
     width: 100%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 5;
     max-height: calc(100svh - var(--header-h) - 6rem);
     min-height: 15rem;
     animation: mask-down 1.6s var(--ease-out) 0.05s both;
   }
   @media (min-width: 700px) {
-    .hero__banner { aspect-ratio: 4 / 5; }
+    .hero__banner { aspect-ratio: 16 / 9; }
   }
   .hero__banner :global(picture) { display: contents; }
   .hero__banner :global(img) {
