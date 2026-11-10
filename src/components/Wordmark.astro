@@ -1,0 +1,39 @@
+---
+/**
+ * The "Dar Sherazade" wordmark, set as live text rather than a raster
+ * image, so it stays crisp at any size. Scheherazade New is a classic
+ * Naskh revival typeface, paired here with the site's EB Garamond.
+ */
+import '@fontsource/scheherazade-new/700.css';
+---
+
+<span class="wordmark-text" aria-hidden="true">
+  <span class="wordmark-text__line">
+    <span class="wordmark-text__latin">Dar</span>
+    <span class="wordmark-text__arabic" lang="ar" dir="rtl">شهرزاد</span>
+  </span>
+  <span class="wordmark-text__line wordmark-text__latin">Sherazade</span>
+</span>
+
+<style>
+  .wordmark-text {
+    display: inline-flex;
+    flex-direction: column;
+    font-family: var(--serif);
+    font-weight: 800;
+    line-height: 0.94;
+    letter-spacing: -0.01em;
+    color: currentColor;
+  }
+  .wordmark-text__line {
+    display: flex;
+    align-items: baseline;
+    gap: 0.2em;
+    white-space: nowrap;
+  }
+  .wordmark-text__arabic {
+    font-family: 'Scheherazade New', var(--serif);
+    font-weight: 700;
+    font-size: 1.1em;
+  }
+</style>

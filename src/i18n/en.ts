@@ -16,21 +16,20 @@ export const t = {
 
   home: {
     heroKicker: 'Algerian dress · Archives · Contemporary creation',
-    heroLine: 'Every Kaftan carries the name of an Algerian flower.',
+    heroLine: 'Caftans made in Algeria, named after the flowers that grow there.',
     scroll: 'Scroll',
     introStatement:
-      'The kaftan has been worn across North Africa and beyond for centuries, and Algeria has its own ways of cutting, embroidering and wearing it.',
+      'The kaftan has been worn across North Africa and beyond for centuries.',
     introBody: [
-      'Dar Sherazade was born from my wish to keep those traditions close: to learn how Algerian kaftans are made and worn, and to create new ones in that spirit. Each piece is made in Algeria and named after a flower that grows there.',
+      "Dar Sherazade's pieces are made in Algeria, by the same family of seamstresses who have dressed the women in my family for two generations. Each one is named after a flower that grows there.",
     ],
     archiveEyebrow: 'The Kaftans',
-    archiveTitle: 'The collection, piece by piece',
+    archiveTitle: 'The collection',
     archiveLink: 'View the kaftans',
-    quote: 'A garment can be read as an archive.',
-    quoteCaption: 'The courtyard series',
+    quote: 'Each kaftan carries a little of that story with it.',
+    quoteCaption: 'In the courtyard',
     aboutEyebrow: 'Dar Sherazade',
-    aboutText:
-      'Independent research, image-making and contemporary creation around Algerian dress heritage.',
+    aboutText: "Caftans made in Algeria, by the women who've always made them.",
     aboutLink: 'About the project',
   },
 
