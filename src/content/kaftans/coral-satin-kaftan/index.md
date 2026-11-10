@@ -1,7 +1,7 @@
 ---
 title: "Khoukh · خوخ"
 archiveNumber: "DS-007"
-order: 12
+order: 10
 region: "To be documented"
 period: "To be documented"
 materials:

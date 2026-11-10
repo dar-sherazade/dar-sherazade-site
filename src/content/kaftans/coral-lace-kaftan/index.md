@@ -1,7 +1,7 @@
 ---
 title: "Defla · دفلة"
 archiveNumber: "DS-006"
-order: 4
+order: 8
 region: "To be documented"
 period: "To be documented"
 materials:

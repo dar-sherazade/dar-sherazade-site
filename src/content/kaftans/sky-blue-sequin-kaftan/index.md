@@ -1,7 +1,7 @@
 ---
 title: "Zahret el Kettan · زهرة الكتان"
 archiveNumber: "DS-012"
-order: 14
+order: 13
 region: "To be documented"
 period: "To be documented"
 materials:

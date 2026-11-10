@@ -1,7 +1,7 @@
 ---
 title: "Ward Jouri · ورد جوري"
 archiveNumber: "DS-010"
-order: 15
+order: 14
 region: "To be documented"
 period: "To be documented"
 materials:

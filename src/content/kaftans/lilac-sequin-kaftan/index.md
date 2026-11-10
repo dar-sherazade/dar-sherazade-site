@@ -1,7 +1,7 @@
 ---
 title: "Zanzalakht · زنزلخت"
 archiveNumber: "DS-008"
-order: 5
+order: 7
 region: "To be documented"
 period: "To be documented"
 materials:

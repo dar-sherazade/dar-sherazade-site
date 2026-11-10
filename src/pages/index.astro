@@ -11,14 +11,14 @@ import { t } from '../i18n/en';
 
 // Homepage images — replace these files to change them.
 import banner from '../assets/brand/dar-sherazade-canva-banner.jpg';
-import courtyard1 from '../assets/home/courtyard-01.jpg';
+import teacup from '../assets/home/teacup.jpg';
 import courtyard2 from '../assets/home/courtyard-02.jpg';
 import courtyard3 from '../assets/home/courtyard-03.jpg';
 
 const bannerAlt =
   'Dar Sherazade, with the name also written in Arabic, in white letters over green, saffron and lavender zellige tiles beside a carved marble column.';
-const courtyard1Alt =
-  'In a courtyard of carved white plaster and zellige tiles, a woman in a fuchsia and ivory kaftan with a gold satin belt holds a bunch of herbs in front of her face.';
+const teacupAlt =
+  'A woman in a beaded ivory and gold kaftan holds a small patterned teacup, against a backdrop of blue zellige tiles.';
 const courtyard2Alt =
   'Two women in the courtyard, one in a green and gold brocade kaftan and one in a black and turquoise kaftan, each holding a lantern in front of her face.';
 const courtyard3Alt =
@@ -46,13 +46,6 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
         style="object-position: 40% 66%;"
       />
     </div>
-    <div class="wrap hero__meta">
-      <p class="hero__line">{t.home.heroLine}</p>
-      <a class="hero__cue label" href="#intro">
-        <span class="hero__cue-line" aria-hidden="true"></span>
-        {t.home.scroll}
-      </a>
-    </div>
   </section>
 
   <!-- Introduction -->
@@ -66,7 +59,7 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
         </div>
       </div>
       <div class="intro__image">
-        <ImageReveal src={courtyard1} alt={courtyard1Alt} sizes="(min-width: 900px) 40vw, 100vw" caption={t.home.quoteCaption} />
+        <ImageReveal src={teacup} alt={teacupAlt} sizes="(min-width: 900px) 40vw, 100vw" />
       </div>
     </div>
   </section>
@@ -150,35 +143,6 @@ const featured = kaftans.filter((k) => k.data.featured).slice(0, 4);
     height: 100%;
     object-fit: cover;
     animation: settle 2.4s var(--ease-out) 0.05s both;
-  }
-  .hero__meta {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem 2rem;
-    padding-block: 1.5rem 0.5rem;
-  }
-  .hero__line {
-    font-size: clamp(1.25rem, 1.9vw, 1.75rem);
-    line-height: 1.3;
-    font-style: italic;
-    animation: fade-in 1.2s var(--ease) 0.9s both;
-  }
-  .hero__cue {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.9rem;
-    padding-block: 0.5rem;
-    text-decoration: none;
-    animation: fade-in 1.2s var(--ease) 1.2s both;
-  }
-  .hero__cue-line {
-    display: block;
-    width: 1px;
-    height: 2.5rem;
-    background: currentColor;
-    animation: cue 2.8s var(--ease) 2s infinite;
   }
 
   /* ---------- Intro ---------- */

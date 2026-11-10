@@ -16,12 +16,9 @@ export const t = {
 
   home: {
     heroKicker: 'Algerian dress · Archives · Contemporary creation',
-    heroLine: 'Caftans made in Algeria, named after the flowers that grow there.',
-    scroll: 'Scroll',
-    introStatement:
-      'The kaftan has been worn across North Africa and beyond for centuries.',
+    introStatement: 'It started with my own wedding kaftan.',
     introBody: [
-      "Dar Sherazade's pieces are made in Algeria, by the same family of seamstresses who have dressed the women in my family for two generations. Each one is named after a flower that grows there.",
+      "I designed it exactly as I'd imagined it, then brought it to the family of seamstresses who have dressed the women in my family for two generations. Dar Sherazade grew from that one piece — every kaftan since has been made by those same hands, and named after a flower that grows in Algeria.",
     ],
     archiveEyebrow: 'The Kaftans',
     archiveTitle: 'The collection',
@@ -29,7 +26,7 @@ export const t = {
     quote: 'Each kaftan carries a little of that story with it.',
     quoteCaption: 'In the courtyard',
     aboutEyebrow: 'Dar Sherazade',
-    aboutText: "Caftans made in Algeria, by the women who've always made them.",
+    aboutText: "Kaftans made in Algeria, by the women who've always made them.",
     aboutLink: 'About the project',
   },
 

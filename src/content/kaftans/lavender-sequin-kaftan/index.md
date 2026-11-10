@@ -1,7 +1,7 @@
 ---
 title: "Khzama · خزامى"
 archiveNumber: "DS-009"
-order: 13
+order: 16
 region: "To be documented"
 period: "To be documented"
 materials:

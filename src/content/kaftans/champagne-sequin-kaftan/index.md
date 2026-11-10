@@ -1,7 +1,7 @@
 ---
 title: "Zhar · زهر"
 archiveNumber: "DS-003"
-order: 2
+order: 4
 region: "To be documented"
 period: "To be documented"
 materials:

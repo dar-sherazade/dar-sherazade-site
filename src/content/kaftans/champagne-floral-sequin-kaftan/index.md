@@ -1,7 +1,7 @@
 ---
 title: "Narjis · نرجس"
 archiveNumber: "DS-004"
-order: 11
+order: 3
 region: "To be documented"
 period: "To be documented"
 materials:

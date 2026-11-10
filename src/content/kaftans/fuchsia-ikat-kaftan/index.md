@@ -1,7 +1,7 @@
 ---
 title: "Bougainvillée · بوغانفيليا"
 archiveNumber: "DS-005"
-order: 3
+order: 5
 region: "To be documented"
 period: "To be documented"
 materials:

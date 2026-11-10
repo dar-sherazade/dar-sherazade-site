@@ -12,7 +12,7 @@
 export const siteConfig = {
   name: 'Dar Sherazade',
   /** Short line used under the name and in the footer. */
-  tagline: 'Caftans made in Algeria, named after the flowers that grow there.',
+  tagline: 'Kaftans made in Algeria, named after the flowers that grow there.',
   /** Default description for search engines and link previews. */
   description:
     'Dar Sherazade is an independent cultural project documenting Algerian kaftans and related dress traditions through craft, archives, images and contemporary creation.',

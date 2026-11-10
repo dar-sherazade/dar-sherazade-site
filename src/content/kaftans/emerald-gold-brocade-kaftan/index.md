@@ -1,7 +1,7 @@
 ---
 title: "Rihane · ريحان"
 archiveNumber: "DS-015"
-order: 8
+order: 2
 region: "To be documented"
 period: "To be documented"
 materials:

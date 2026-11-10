@@ -1,7 +1,7 @@
 ---
 title: "Nouar · نوّار"
 archiveNumber: "DS-011"
-order: 6
+order: 1
 region: "To be documented"
 period: "To be documented"
 materials:

@@ -50,12 +50,6 @@
   from { transform: scale(1.12); }
   to { transform: scale(1); }
 }
-@keyframes cue {
-  0% { transform: scaleY(0); transform-origin: top; }
-  45% { transform: scaleY(1); transform-origin: top; }
-  55% { transform: scaleY(1); transform-origin: bottom; }
-  100% { transform: scaleY(0); transform-origin: bottom; }
-}
 
 /* Gentle cross-fade between pages (supported browsers only, no JS) */
 @view-transition { navigation: auto; }

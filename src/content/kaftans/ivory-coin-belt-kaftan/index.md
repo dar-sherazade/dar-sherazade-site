@@ -1,7 +1,7 @@
 ---
 title: "Yasmine · ياسمين"
 archiveNumber: "DS-001"
-order: 1
+order: 6
 region: "To be documented"
 period: "To be documented"
 materials:
